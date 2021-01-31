@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_flagzero2.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/27 16:34:13 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/01/28 14:23:00 by bmoulin          ###   ########lyon.fr   */
-/*                                                                            */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_flagzero2.c                                   .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: aviscogl <aviscogl@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2021/01/27 16:34:13 by bmoulin      #+#   ##    ##    #+#       */
+/*   Updated: 2021/01/31 22:02:58 by aviscogl    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
 /* ************************************************************************** */
-
 #include "ft_printf.h"
 
 int		ft_retzero2(const char *str, char **container, size_t **i)
@@ -68,9 +68,13 @@ int		ft_retun2(const char *str, char **container, size_t **i)
 	if (b == 0 && is_in(ft_rettype(str), "sc"))
 	{
 		(**i)++;
+		free((char *)str);
+		str = 0;
 		return (0);
 	}
 	ft_putstr(container[**i]);
+	free((char *)str);
+	str = 0;
 	return (ft_strlen(container[(**i)++]));
 }
 
@@ -80,6 +84,8 @@ int		ft_retun3(const char *str, char **container, size_t **i)
 		ft_putstr(container[(**i)++] + 1);
 	else
 		ft_putstr(container[(**i)++]);
+	free((char *)str);
+	str = 0;
 	return (ft_getb(str));
 }
 
@@ -95,7 +101,11 @@ int		ft_retun(const char *str, char **container, size_t **i)
 	if (container[**i][0] == '-')
 		size--;
 	if (b == 0 && container[**i][0] == '0')
+	{
+		free((char *)str);
+		str = 0;
 		return (0);
+	}
 	if (size >= b)
 		return (ft_retun2(str, container, &(*i)));
 	if (container[**i][0] == '-')

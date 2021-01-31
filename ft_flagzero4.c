@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_flagzero4.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/28 08:59:58 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/01/28 09:08:57 by bmoulin          ###   ########lyon.fr   */
-/*                                                                            */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_flagzero4.c                                   .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: aviscogl <aviscogl@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2021/01/28 08:59:58 by bmoulin      #+#   ##    ##    #+#       */
+/*   Updated: 2021/01/31 22:06:06 by aviscogl    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
 /* ************************************************************************** */
-
 #include "ft_printf.h"
 
 int		ft_nbargsttwo2(const char *str, char **container, size_t **i)
@@ -18,14 +18,22 @@ int		ft_nbargsttwo2(const char *str, char **container, size_t **i)
 
 	b = ft_getb(str);
 	if (container[**i][0] == '0')
+	{
+		free ((char *)str);
+		str = 0;
 		return (0);
+	}
 	if ((b >= ft_strlen(container[**i]) || b == 0)
 		&& is_in(ft_rettype(str), "dui"))
 	{
 		ft_putstr(container[**i]);
+		free ((char *)str);
+		str = 0;
 		return (ft_strlen(container[(**i)++]));
 	}
 	ft_putstr_len(container[**i], b);
+	free ((char *)str);
+	str = 0;
 	return (b);
 }
 
@@ -47,6 +55,8 @@ int		ft_nbargsttwo8(const char *str, char **container, size_t **i)
 	if (b == 0 && a < 0)
 		ft_putspace(tmpa - ft_strlen(container[**i]));
 	(**i)++;
+	free((char *)str);
+	str = 0;
 	return (tmpa + (b >= a ? 1 : 0));
 }
 
@@ -83,10 +93,14 @@ int		ft_nbargsttwo10(const char *str, char **container, size_t **i)
 	if (is_in(ft_rettype(str), "sc"))
 	{
 		ft_putspace(tmpa);
+		free((char *)str);
+		str = 0;
 		return (tmpa);
 	}
 	ft_putspace(tmpa - ft_strlen(container[**i]));
 	ft_putstr(container[(**i)++]);
+	free((char *)str);
+	str = 0;
 	return (tmpa);
 }
 
@@ -115,5 +129,7 @@ int		ft_nbargsttwo11(const char *str, char **container, size_t **i)
 	if (b == 0)
 		ft_putspace(tmpa - ft_strlen(container[**i]));
 	(**i)++;
+	free((char *)str);
+	str = 0;
 	return (tmpa);
 }

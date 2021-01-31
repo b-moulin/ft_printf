@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_write.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/07 07:54:44 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/01/29 15:54:49 by bmoulin          ###   ########lyon.fr   */
-/*                                                                            */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_write.c                                       .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: aviscogl <aviscogl@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2021/01/07 07:54:44 by bmoulin      #+#   ##    ##    #+#       */
+/*   Updated: 2021/01/31 20:33:13 by aviscogl    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
 /* ************************************************************************** */
-
 #include "ft_printf.h"
 
 int		ft_star(const char *str)
@@ -37,7 +37,7 @@ char	*ft_returnflag(const char *str)
 	while (str[i])
 	{
 		if (is_in(str[i], "cspdiuxX%"))
-			return (ft_substr(str, 0, i + 1));
+			return (ft_substr(str, 0, i + 1, 0));
 		i++;
 	}
 	return (NULL);
@@ -76,25 +76,11 @@ int		ft_percflag(const char *str)
 
 int		ft_ismalloc(void **str)
 {
-	// printf("\n\nstr : &s | %lld\n\n", str, (unsigned long long)str);
-	// if ((unsigned long long)str > 140737488355328 - 8000000)
-	// 	return (0);
-	return (1);
-	// char *addr;
-
-	// if (!(addr = ft_nbrbase((unsigned long long)str, "0123456789abcdef")))
-	// 	return (0);
-	// // printf("addr : %s\n", addr);
-	// // printf("str : %p\n", str);
-	// if (ft_strlen(addr) <= 7)
-	// {
-	// 	free(addr);
-	// 	addr = 0;
-	// 	return (1);
-	// }
-	// free(addr);
-	// addr = 0;
-	// return (0);
+	if ((unsigned long long)str > 140737488355328 - 8000000)
+		return (1);
+	if ((unsigned long long)str == 0)
+		return (1);
+	return (0);
 }
 
 int		ft_write(const char *str, char **container)
@@ -115,24 +101,16 @@ int		ft_write(const char *str, char **container)
 			else
 				write(1, &str[i], 1);
 			nb_write++;
-		}
-		else
-		{
-			nb_write = nb_write +
-				ft_flaglist(malstr, container, 0);
-			i = i + ft_strlen(malstr) - 1;
-		}
-		if (ft_ismalloc((void **)malstr))
-		{
 			free(malstr);
 			malstr = 0;
 		}
+		else
+		{
+			i = i + ft_strlen(malstr) - 1;
+			nb_write = nb_write +
+				ft_flaglist(malstr, container, 0);
+		}
 		i++;
-	}
-	if (ft_ismalloc((void *)malstr))
-	{
-		free(malstr);
-		malstr = 0;
 	}
 	return (nb_write);
 }

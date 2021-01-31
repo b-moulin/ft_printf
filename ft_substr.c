@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/06 15:35:50 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/01/28 14:28:17 by bmoulin          ###   ########lyon.fr   */
-/*                                                                            */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_substr.c                                      .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: aviscogl <aviscogl@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2021/01/06 15:35:50 by bmoulin      #+#   ##    ##    #+#       */
+/*   Updated: 2021/01/31 11:28:28 by aviscogl    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
 /* ************************************************************************** */
-
 #include "ft_printf.h"
 
 size_t	ft_lignes(const char *s, char *dest, size_t i, size_t start)
@@ -22,7 +22,7 @@ size_t	ft_lignes(const char *s, char *dest, size_t i, size_t start)
 	return (1);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char const *s, unsigned int start, size_t len, int tofree)
 {
 	size_t	i;
 	size_t	maxlen;
@@ -47,5 +47,10 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	while (start < maxlen)
 		dest[i++] = s[start++];
 	dest[i] = '\0';
+	if (tofree)
+	{
+		free((char *)s);
+		s = 0;
+	}
 	return (dest);
 }

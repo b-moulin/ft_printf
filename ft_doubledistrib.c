@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_doubledistrib.c                                 :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/08 07:39:32 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/01/28 08:55:04 by bmoulin          ###   ########lyon.fr   */
-/*                                                                            */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_doubledistrib.c                               .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: aviscogl <aviscogl@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2021/01/08 07:39:32 by bmoulin      #+#   ##    ##    #+#       */
+/*   Updated: 2021/01/31 18:33:46 by aviscogl    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
 /* ************************************************************************** */
-
 #include "ft_printf.h"
 
 char	*ft_a(const char *str, char **container, size_t **i)
@@ -21,7 +21,7 @@ char	*ft_a(const char *str, char **container, size_t **i)
 		ft_strlen(container[**i]) <= ft_geta(str))
 		return (container[**i]);
 	else if (ft_strlen(container[**i]) > ft_geta(str))
-		return (ft_substr(container[**i], 0, ft_geta(str)));
+		return (ft_substr(container[**i], 0, ft_geta(str), 0));
 	return (0);
 }
 
@@ -48,10 +48,14 @@ int		ft_sba2(const char *str, char **container, size_t **i)
 			ft_putspace(tmpa - b);
 		else
 			ft_putspace((tmpa - ft_strlen(container[(**i)++])));
+		free((char *)str);
+		str = 0;
 		return (tmpa);
 	}
 	ft_putstr(container[**i]);
 	ft_putspace(tmpa - ft_strlen(container[**i]));
+	free((char *)str);
+	str = 0;
 	return (ft_strlen(container[(**i)++]) + 1);
 }
 
@@ -71,22 +75,46 @@ int		ft_sba(const char *str, char **container, size_t **i)
 	if (b == 0)
 	{
 		ft_putspace(tmpa);
+		free((char *)str);
+		str = 0;
 		return (tmpa);
 	}
 	if (b > tmpa && tmpa <= ft_strlen(container[(**i)]))
 	{
 		ft_putstr(container[(**i)]);
+		free((char *)str);
+		str = 0;
 		return (ft_strlen(container[(**i)++]));
 	}
 	ft_putspace(tmpa - ft_strlen(container[**i]));
 	ft_putstr(container[**i]);
+	free((char *)str);
+	str = 0;
 	return (ft_strlen(container[(**i)++]) + 1);
+}
+
+int		ft_nomallocdflag3(const char *str, char *container, size_t **i)
+{
+	char	dest[ft_strlen(container)];
+	int		j;
+
+	j = 0;
+	while (container[j])
+	{
+		dest[j] = container[j];
+		j++;
+	}
+	dest[j] = container[j];
+	free(container);
+	container = 0;
+	return (ft_dflag3(str, dest, &(*i)));
 }
 
 int		ft_sab(const char *str, char **container, size_t **i)
 {
 	int		a;
 	int		b;
+	char	*unmalloc;
 
 	a = ft_geta(str);
 	b = ft_getb(str);
@@ -95,9 +123,20 @@ int		ft_sab(const char *str, char **container, size_t **i)
 	if (b == 0)
 	{
 		(**i)++;
+		free((char *)str);
+		str = 0;
 		return (ft_putspace(a));
 	}
 	if (a >= b)
+	{
+		if (ft_strlen(container[**i]) > ft_getb(str))
+		{
+			unmalloc = ft_substr(container[**i], 0, ft_getb(str), 0);
+			return (ft_nomallocdflag3(str, unmalloc, &(*i)));
+		}
 		return (ft_dflag3(str, ft_b(str, container, &(*i)), &(*i)));
+	}
+	free((char *)str);
+	str = 0;
 	return (0);
 }

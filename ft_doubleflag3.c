@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_doubleflag3.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/27 16:24:05 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/01/28 09:07:23 by bmoulin          ###   ########lyon.fr   */
-/*                                                                            */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_doubleflag3.c                                 .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: aviscogl <aviscogl@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2021/01/27 16:24:05 by bmoulin      #+#   ##    ##    #+#       */
+/*   Updated: 2021/01/31 20:36:03 by aviscogl    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
 /* ************************************************************************** */
-
 #include "ft_printf.h"
 
 int		ft_ptnotset(const char *str, char **container, size_t **i)
@@ -22,16 +22,22 @@ int		ft_ptnotset(const char *str, char **container, size_t **i)
 	if (tmpa <= ft_strlen(container[**i]))
 	{
 		ft_putstr(container[**i]);
+		free((char *)str);
+		str = 0;
 		return (ft_strlen(container[(**i)++]));
 	}
 	if (a < 0)
 	{
 		ft_putstr(container[**i]);
 		ft_putspace(tmpa - ft_strlen(container[(**i)++]));
+		free((char *)str);
+		str = 0;
 		return (tmpa);
 	}
 	ft_putspace(tmpa - ft_strlen(container[**i]));
 	ft_putstr(container[(**i)++]);
+	free((char *)str);
+	str = 0;
 	return (tmpa);
 }
 
@@ -91,11 +97,15 @@ int		ft_flagdouble4(const char *str, char **container, size_t **i)
 		write(1, "-", 1);
 		ft_putzerob(b - ft_strlen(container[**i]) + 1);
 		ft_putstr(container[(**i)++] + 1);
+		free((char *)str);
+		str = 0;
 		return (a);
 	}
 	ft_putspace(a - b);
 	ft_putzerob(b - ft_strlen(container[**i]));
 	ft_putstr(container[(**i)++]);
+	free((char *)str);
+	str = 0;
 	return (a);
 }
 
@@ -114,7 +124,11 @@ int		ft_flagdouble5(const char *str, char **container, size_t **i)
 	if ((tmpa - ft_strlen(container[**i]) - 1) > 0)
 	{
 		ft_putspace(tmpa - ft_strlen(container[(**i)++]) - 1);
+		free((char *)str);
+		str = 0;
 		return (tmpa);
 	}
+	free((char *)str);
+	str = 0;
 	return (tmpa + 1 - (b - ft_strlen(container[**i]) + 1));
 }

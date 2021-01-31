@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_flags.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/07 11:48:03 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/01/28 09:13:15 by bmoulin          ###   ########lyon.fr   */
-/*                                                                            */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_flags.c                                       .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: aviscogl <aviscogl@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2021/01/07 11:48:03 by bmoulin      #+#   ##    ##    #+#       */
+/*   Updated: 2021/01/31 18:46:26 by aviscogl    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
 /* ************************************************************************** */
-
 #include "ft_printf.h"
 
 int		ft_getafterp(const char *str)
@@ -25,7 +25,8 @@ int		ft_getafterp(const char *str)
 	start = i + 1;
 	while (str[++i] >= '0' && str[i] <= '9')
 		j++;
-	return (ft_atoi(ft_substr(str, start, j)));
+	i = ft_atoi(ft_substr(str, start, j, 0));
+	return (i);
 }
 
 int		ft_flagx(const char *str, char **container, size_t **i, int j)
@@ -46,21 +47,29 @@ int		ft_flagx(const char *str, char **container, size_t **i, int j)
 
 int		ft_flagxx(const char *str, char **container, size_t **i)
 {
+	int		ret;
 	if (is_in('d', (char *)str) || is_in('i', (char *)str)
 		|| is_in('u', (char *)str) || is_in('x', (char *)str)
 			|| is_in('X', (char *)str))
 	{
 		ft_putstr(container[**i]);
+		free((char *)str);
+		str = 0;
 		return (ft_strlen(container[(**i)++]));
 	}
 	if (ft_getb(str) < 0)
 	{
 		ft_putstr(container[**i]);
+		free((char *)str);
+		str = 0;
 		return (ft_strlen(container[(**i)++]));
 	}
 	ft_putstr_len(container[**i], ft_getafterp(str));
 	(**i)++;
-	return (ft_getafterp(str));
+	ret = ft_getafterp(str);
+	free((char *)str);
+	str = 0;
+	return (ret);
 }
 
 int		ft_flag3(const char *str, char **container, size_t **i)
@@ -73,8 +82,14 @@ int		ft_flag3(const char *str, char **container, size_t **i)
 		if (is_in('d', (char *)str) || is_in('u', (char *)str)
 			|| is_in('i', (char *)str) || is_in('x', (char *)str)
 				|| is_in('X', (char *)str))
+		{
+			free ((char *)str);
+			str = 0;
 			return (ft_flagx(str, container, &(*i), j));
+		}
 		ft_putstr(container[**i]);
+		free ((char *)str);
+		str = 0;
 		return (ft_strlen(container[(**i)++]));
 	}
 	else
@@ -87,12 +102,16 @@ int		ft_flag2(const char *str, char **container, size_t **i)
 	if (str[1] == '.' && str[2] == 's')
 	{
 		(**i)++;
+		free((char *)str);
+		str = 0;
 		return (0);
 	}
 	if (str[1] == '.' && str[2] == 'c')
 	{
 		write(1, &container[**i][0], 1);
 		(**i)++;
+		free((char *)str);
+		str = 0;
 		return (1);
 	}
 	else if (str[1] == '.' && is_in(str[2], "udixX"))
@@ -100,10 +119,16 @@ int		ft_flag2(const char *str, char **container, size_t **i)
 		if (container[**i][0] == '0')
 		{
 			(**i)++;
+			free((char *)str);
+			str = 0;
 			return (0);
 		}
 		ft_putstr(container[**i]);
+		free((char *)str);
+		str = 0;
 		return (ft_strlen(container[(**i)++]));
 	}
+	free((char *)str);
+	str = 0;
 	return (0);
 }

@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_flagsx.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/28 09:13:29 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/01/29 13:42:05 by bmoulin          ###   ########lyon.fr   */
-/*                                                                            */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_flagsx.c                                      .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: aviscogl <aviscogl@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2021/01/28 09:13:29 by bmoulin      #+#   ##    ##    #+#       */
+/*   Updated: 2021/01/31 17:25:44 by aviscogl    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
 /* ************************************************************************** */
-
 #include "ft_printf.h"
 
 int		ft_flag4neg(const char *str, char **container, size_t **i)
@@ -32,18 +32,22 @@ int		ft_flag4neg(const char *str, char **container, size_t **i)
 			write(1, " ", 1);
 		(**i)++;
 		j = ft_getaftert(str) * -1;
-		if (ft_ismalloc((void **)str))
-		{
-			free((char *)str);
-			str = 0;
-		}
-		return (j);
-	}
-	if (ft_ismalloc((void **)str))
-	{
+		// if (str)
+		// {
+		// 	free((char *)str);
+		// 	str = 0;
+		// }
 		free((char *)str);
 		str = 0;
+		return (j);
 	}
+	// if (str)
+	// {
+	// 	free((char *)str);
+	// 	str = 0;
+	// }
+	free((char *)str);
+	str = 0;
 	return (ft_strlen(container[(**i)++]));
 }
 
@@ -55,12 +59,9 @@ int		ft_flag4(const char *str, char **container, size_t **i, int j)
 		return (ft_flag4neg(str, container, &(*i)));
 	if (ft_getaftert(str) <= ft_strlen(container[**i]))
 	{
-		if (ft_ismalloc((void **)str))
-		{
-			free((char *)str);
-			str = 0;
-		}
 		ft_putstr(container[**i]);
+		free((char *)str);
+		str = 0;
 		return (ft_strlen(container[(**i)++]));
 	}
 	else
@@ -74,23 +75,16 @@ int		ft_flag4(const char *str, char **container, size_t **i, int j)
 			else
 				write(1, " ", 1);
 			ret = ft_getaftert(str);
-			if (ft_ismalloc((void **)str))
-			{
-				free((char *)str);
-				str = 0;
-			}
+			free((char *)str);
+			str = 0;
 			return (ret);
 		}
 		while (j < ft_getaftert(str) - ft_strlen(container[**i]))
 			write(1, j++ ? " " : " ", 1);
 		ft_putstr(container[(**i)++]);
 		ret = ft_getaftert(str);
-		if (ft_ismalloc((void **)str))
-		{
-			//printf("here\n\n");
-			free((char *)str);
-			str = 0;
-		}
+		free((char *)str);
+		str = 0;
 		return (ret);
 	}
 }

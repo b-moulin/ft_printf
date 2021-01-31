@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_doubleflag2.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/27 16:21:16 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/01/28 08:48:25 by bmoulin          ###   ########lyon.fr   */
-/*                                                                            */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_doubleflag2.c                                 .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: aviscogl <aviscogl@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2021/01/27 16:21:16 by bmoulin      #+#   ##    ##    #+#       */
+/*   Updated: 2021/01/31 20:34:55 by aviscogl    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
 /* ************************************************************************** */
-
 #include "ft_printf.h"
 
 char	ft_rettype(const char *str)
@@ -39,7 +39,7 @@ int		ft_getb(const char *str)
 		j++;
 	while (str[i++])
 		len++;
-	return (ft_atoi(ft_substr(str, j, len)));
+	return (ft_atoi(ft_substr(str, j, len, 0)));
 }
 
 int		ft_geta(const char *str)
@@ -49,11 +49,12 @@ int		ft_geta(const char *str)
 
 	i = 1;
 	j = 1;
+	//printf("str : |%s|\n", str);
 	while (str[j] && str[j] == '0')
 		j++;
 	while (str[i] && str[i] != '.')
 		i++;
-	return (ft_atoi(ft_substr(str, j, i)));
+	return (ft_atoi(ft_substr(str, j, i, 0)));
 }
 
 int		ft_putspaced(const char *str, char **container, size_t **i)
@@ -81,6 +82,8 @@ int		ft_putzero(const char *str, char **container, size_t **i)
 
 	j = 0;
 	b = ft_getb(str);
+	free((char *)str);
+	str = 0;
 	if (container[**i][0] == '-')
 		write(1, "-", 1);
 	while (j < b - ft_strlen(container[**i]) +

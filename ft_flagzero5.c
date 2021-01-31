@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_flagzero5.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/28 09:02:03 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/01/28 09:02:15 by bmoulin          ###   ########lyon.fr   */
-/*                                                                            */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_flagzero5.c                                   .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: aviscogl <aviscogl@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2021/01/28 09:02:03 by bmoulin      #+#   ##    ##    #+#       */
+/*   Updated: 2021/01/31 22:04:44 by aviscogl    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
 /* ************************************************************************** */
-
 #include "ft_printf.h"
 
 int		ft_nbargsttwo12(const char *str, char **container, size_t **i)
@@ -24,6 +24,8 @@ int		ft_nbargsttwo12(const char *str, char **container, size_t **i)
 	{
 		ft_putspace(tmpa);
 		(**i)++;
+		free((char *)str);
+		str = 0;
 		return (tmpa);
 	}
 	if (ft_geta(str) < 0)
@@ -37,6 +39,8 @@ int		ft_nbargsttwo12(const char *str, char **container, size_t **i)
 		ft_putstr(container[**i] + 1);
 	else
 		ft_putstr(container[**i]);
+	free((char *)str);
+	str = 0;
 	return (tmpa);
 }
 
@@ -54,14 +58,20 @@ int		ft_nbargsttwo13(const char *str, char **container, size_t **i)
 		write(1, "-", 1);
 		ft_putzerob(b - ft_strlen(container[**i] + 1));
 		ft_putstr(container[(**i)++] + 1);
+		free((char *)str);
+		str = 0;
 		return (b + 1);
 	}
 	if (b > ft_strlen(container[**i]))
 	{
 		ft_putzerob(b - ft_strlen(container[**i]));
 		ft_putstr(container[(**i)++]);
+		free((char *)str);
+		str = 0;
 		return (b);
 	}
 	ft_putstr(container[**i]);
+	free((char *)str);
+	str = 0;
 	return (ft_strlen(container[(**i)++]));
 }

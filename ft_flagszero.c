@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_flagszero.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/08 14:25:46 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/01/28 14:20:13 by bmoulin          ###   ########lyon.fr   */
-/*                                                                            */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_flagszero.c                                   .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: aviscogl <aviscogl@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2021/01/08 14:25:46 by bmoulin      #+#   ##    ##    #+#       */
+/*   Updated: 2021/01/31 22:03:55 by aviscogl    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
 /* ************************************************************************** */
-
 #include "ft_printf.h"
 
 void	ft_nbargsttwo14(const char *str, char **container, size_t **i)
@@ -26,6 +26,8 @@ void	ft_nbargsttwo14(const char *str, char **container, size_t **i)
 		ft_putspace(ft_strlen(container[**i]));
 	else
 		ft_putstr(container[**i]);
+	free ((char *)str);
+	str = 0;
 }
 
 int		ft_nbargsttwo15(const char *str, char **container, size_t **i)
@@ -40,6 +42,8 @@ int		ft_nbargsttwo15(const char *str, char **container, size_t **i)
 	if (a == 0 && b < 0 && !(is_in(ft_rettype(str), "sc")))
 	{
 		ft_putstr(container[**i]);
+		free((char *)str);
+		str = 0;
 		return (ft_strlen(container[(**i)++]));
 	}
 	return (ft_nbargsttwo2(str, container, &(*i)));

@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/06 13:19:11 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/01/28 15:33:19 by bmoulin          ###   ########lyon.fr   */
-/*                                                                            */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_itoa.c                                        .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: aviscogl <aviscogl@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2021/01/06 13:19:11 by bmoulin      #+#   ##    ##    #+#       */
+/*   Updated: 2021/01/31 19:05:22 by aviscogl    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
 /* ************************************************************************** */
-
 #include "ft_printf.h"
 
 static long long	ft_lendest(long long n)
@@ -102,6 +102,6 @@ int					ft_getaftert(const char *str)
 	start = 1;
 	while ((str[++i] >= '0' && str[i] <= '9') || str[i] == '-' || str[i] == '+')
 		j++;
-	ret = ft_atoi(ft_substr(str, start, j));
+	ret = ft_atoi(ft_substr(str, start, j, 0));
 	return (ret);
 }

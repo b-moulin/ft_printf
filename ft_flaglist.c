@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_flaglist.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/07 08:52:59 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/01/29 13:29:07 by bmoulin          ###   ########lyon.fr   */
-/*                                                                            */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_flaglist.c                                    .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: aviscogl <aviscogl@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2021/01/07 08:52:59 by bmoulin      #+#   ##    ##    #+#       */
+/*   Updated: 2021/01/31 22:02:13 by aviscogl    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
 /* ************************************************************************** */
-
 #include "ft_printf.h"
 
 int		ft_cutflag(const char *str, char **container, size_t **i)
@@ -60,9 +60,13 @@ int		ft_flaglist3(const char *str, char **container, size_t **i)
 	{
 		write(1, "\0", 1);
 		(**i)++;
+		free((char *)str);
+		str = 0;
 		return (1);
 	}
 	ft_putstr(container[**i]);
+	free((char *)str);
+	str = 0;
 	return (ft_strlen(container[(**i)++]));
 }
 
@@ -100,7 +104,7 @@ int		ft_flaglist(const char *str, char **container, int reset)
 	{
 		free(malstr);
 		malstr = 0;
-		return (ft_address(str, container[(*i)++]));
+		return (ft_address(str, ft_strdup(container[(*i)++])));
 	}
 	if (ft_strlen((char *)str) == 2)
 	{

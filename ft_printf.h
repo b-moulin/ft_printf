@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/28 09:17:49 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/01/29 09:40:53 by bmoulin          ###   ########lyon.fr   */
-/*                                                                            */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_printf.h                                      .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: aviscogl <aviscogl@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2021/01/28 09:17:49 by bmoulin      #+#   ##    ##    #+#       */
+/*   Updated: 2021/01/31 18:35:28 by aviscogl    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
 /* ************************************************************************** */
-
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
@@ -37,7 +37,6 @@ int					is_in(char content, char *tofind);
 int					ft_nbargs(const char *str);
 size_t				ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char				*ft_itoa(long long n);
-char				*ft_substr(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char *s1, char *s2);
 int					ft_write(const char *str, char **container);
 void				ft_putstr(const char *str);
@@ -70,7 +69,7 @@ int					ft_starin(const char *str);
 int					ft_getprcta(const char *str);
 char				*ft_retptr(const char c);
 int					ft_resetstatic(size_t	*a, size_t	*b);
-int					ft_valuept(const char *str);
+int					ft_valuept(const char *str, int tofree);
 int					ft_valuept2(const char *str);
 int					ft_dflag3r(const char *str, char *container, size_t **i);
 int					ft_dflag3(const char *str, char *container, size_t **i);
@@ -107,6 +106,9 @@ int					ft_nbargsttwo13(const char *str, char **container, size_t **i);
 int					ft_flag4neg(const char *str, char **container, size_t **i);
 int					ft_flag4(const char *str, char **container, size_t **i, int j);
 int					ft_ismalloc(void **str);
+char				*ft_substr(char const *s, unsigned int start, size_t len, int tofree);
+char				*ft_joinptr(char *s1, char s2);
+int					ft_nomallocdflag3(const char *str, char *container, size_t **i);
 
 #endif
 

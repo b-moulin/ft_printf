@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   libft.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/06 08:11:09 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/01/28 14:00:30 by bmoulin          ###   ########lyon.fr   */
-/*                                                                            */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   libft.c                                          .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: aviscogl <aviscogl@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2021/01/06 08:11:09 by bmoulin      #+#   ##    ##    #+#       */
+/*   Updated: 2021/01/31 13:09:48 by aviscogl    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
 /* ************************************************************************** */
-
 #include "ft_printf.h"
 
 char		*ft_strnstr(const char *str, const char *find, size_t len)
@@ -76,7 +76,11 @@ long long	ft_atoi(const char *str)
 	if (str[i] == '+' || str[i] == '-')
 		i++;
 	else if (!(str[i] >= '0' && str[i] <= '9'))
+	{
+		free ((char *)str);
+		str = 0;
 		return (0);
+	}
 	if (str[i] >= '0' && str[i] <= '9')
 	{
 		value = str[i] - 48;

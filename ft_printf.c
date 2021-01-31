@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/04 07:27:59 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/01/29 15:56:05 by bmoulin          ###   ########lyon.fr   */
-/*                                                                            */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_printf.c                                      .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: aviscogl <aviscogl@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2021/01/04 07:27:59 by bmoulin      #+#   ##    ##    #+#       */
+/*   Updated: 2021/01/31 23:30:11 by aviscogl    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
 /* ************************************************************************** */
-
 #include "ft_printf.h"
 
 void	ft_putstr_len(const char *str, const size_t	len)
@@ -106,21 +106,46 @@ int		ft_address2(char *addr, const char *str)
 		if (tmpa <= 2)
 		{
 			write(1, "0x", 2);
+			free(addr);
+			addr = 0;
+			free((char *)str);
+			str = 0;
 			return (2);
 		}
 		if (a > 0)
 		{
 			ft_putspace(a - 2);
 			write(1, "0x", 2);
+			free(addr);
+			addr = 0;
+			free((char *)str);
+			str = 0;
 			return (a);
 		}
 		write(1, "0x", 2);
 		ft_putspace(tmpa - 2);
+		free(addr);
+		addr = 0;
+		free((char *)str);
+		str = 0;
 		return (tmpa);
 	}
-	write(1, "0x", 2);
-	ft_putstr(addr);
-	return (ft_strlen(addr) + 2);
+	if (addr[0] == '0')
+	{
+		write(1, "(nil)", 5);
+		a = 5;
+	}
+	else
+	{
+		write(1, "0x", 2);
+		ft_putstr(addr);
+		a = ft_strlen(addr) + 2;
+	}
+	free(addr);
+	addr = 0;
+	free((char *)str);
+	str = 0;
+	return (a);
 }
 
 int		ft_address(const char *str, char *container)
@@ -138,20 +163,57 @@ int		ft_address(const char *str, char *container)
 	str = 0;
 	if (tmpa <= ft_strlen(addr) + 2)
 	{
-		write(1, "0x", 2);
+		if (addr[0] == '0')
+		{
+			write(1, "(nil)", 5);
+			a = 5;
+		}
+		else
+		{
+			write(1, "0x", 2);
+			a = ft_strlen(addr) + 2;
+		}
 		ft_putstr(addr);
-		return (ft_strlen(addr) + 2);
+		free (addr);
+		addr = 0;
+		free((char *)str);
+		str = 0;
+		return (a);
 	}
 	if (a > 0)
 	{
-		ft_putspace(a - ft_strlen(addr) - 2);
-		write(1, "0x", 2);
-		ft_putstr(addr);
+		if (addr[0] == '0')
+		{
+			ft_putspace(a - 5);
+			write(1, "(nil)", 5);
+		}
+		else
+		{
+			ft_putspace(a - ft_strlen(addr) - 2);
+			write(1, "0x", 2);
+			ft_putstr(addr);
+		}
+		free (addr);
+		addr = 0;
+		free((char *)str);
+		str = 0;
 		return (a);
 	}
-	write(1, "0x", 2);
-	ft_putstr(addr);
-	ft_putspace(tmpa - ft_strlen(addr) - 2);
+	if (addr[0] == '0')
+	{
+		write(1, "(nil)", 5);
+		ft_putspace(tmpa - 5);
+	}
+	else
+	{
+		write(1, "0x", 2);
+		ft_putstr(addr);
+		ft_putspace(tmpa - ft_strlen(addr) - 2);
+	}
+	free (addr);
+	addr = 0;
+	free((char *)str);
+	str = 0;
 	return (tmpa);
 }
 
@@ -233,7 +295,7 @@ int		ft_printf(const char *str, ...)
 		else if (getflag == 10)
 		{
 			str = ft_itoa((unsigned long long)va_arg(arg, void *));
-			args[i] = ft_strdup((char *)str);
+			args[i] = ft_strjoin_nos1("", (char *)str);
 		}
 		else if (getflag == 66 || getflag == 67)
 		{
@@ -242,10 +304,18 @@ int		ft_printf(const char *str, ...)
 				str = ft_strdup("(null)");
 			if (getflag == 66)
 			{
-				args[i] = ft_strdup(ft_nbrbase(ft_atoi(str), "0123456789abcdef"));
+				str = ft_nbrbase(ft_atoi(str), "0123456789abcdef");
+				args[i] = ft_strdup((char *)str);
+				free((char *)str);
+				str = 0;
 			}
 			else
-				args[i] = ft_strdup(ft_nbrbase(ft_atoi(str), "0123456789ABCDEF"));
+			{
+				str = ft_nbrbase(ft_atoi(str), "0123456789ABCDEF");
+				args[i] = ft_strdup((char *)str);
+				free((char *)str);
+				str = 0;
+			}
 		}
 		else if (getflag == 15)
 		{
@@ -253,6 +323,8 @@ int		ft_printf(const char *str, ...)
 			if (!str)
 				str = ft_strdup("(null)");
 			args[i] = ft_strdup((char *)str);
+			free ((char *)str);
+			str = 0;
 		}
 		else
 		{
@@ -266,6 +338,8 @@ int		ft_printf(const char *str, ...)
 		getflag = ft_getflag(first, 0);
 		i++;
 	}
+	if (i == 0)
+		free((char *)args[i]);
 	args[i] = NULL;
 	va_end(arg);
 	ret = ft_write(first, args);
@@ -282,16 +356,35 @@ int		ft_printf(const char *str, ...)
 	return (ret);
 }
 
-int		main(void)
-{
-	// char *base;
-	char a;
+// int		main(void)
+// {
+// 	setbuf(stdout, NULL);
+// 	int		ret;
+// 	int		ret2;
 
-	// base = ft_nbrbase(1000, "0123456789abcdef");
-	// printf("base : %s\n", base);
-	// free (base);
-	ft_printf("%-10c%*c%c*",'0', 10, '1', '2');
-	//ft_printf("%*c", 2, '0');
-	//ft_printf("%c%c%c*",'0', '1', '2');
-	//printf("%p\n", &a);
+// 	ret = printf("%%*.c%c%%*.s*%ps%%*.X\n", '0', NULL);
+// 	ret2 = ft_printf("%%*.c%c%%*.s*%ps%%*.X\n", '0', NULL);
+	
+// }
+
+int main ()
+{
+	int ret;
+	int ret2;
+	char *test;
+	setbuf(stdout, NULL);
+
+	test = malloc(sizeof(char) * (5 + 1));
+	free(test);
+	test = NULL;
+
+	printf("Variables testees : None\n");
+	ret =     	printf("V -24%%[%-54%] / -2%%[%-2%]\n");
+	ret2 = 		ft_printf("F -24%%[%-54%] / -2%%[%-2%]\n");
+	printf("V=%i F=%i  ", ret, ret2);
+	if (ret != ret2)
+		printf("\033[1;31m%s\033[0m\n", "KO");
+	else
+		printf("\033[1;32m%s\033[0m\n", "OK");
+	
 }
