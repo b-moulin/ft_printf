@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   ft_flagzero4.c                                   .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: aviscogl <aviscogl@student.le-101.fr>      +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2021/01/28 08:59:58 by bmoulin      #+#   ##    ##    #+#       */
-/*   Updated: 2021/01/31 22:06:06 by aviscogl    ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_flagzero4.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/28 08:59:58 by bmoulin           #+#    #+#             */
+/*   Updated: 2021/02/01 15:18:14 by bmoulin          ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
+
 #include "ft_printf.h"
 
 int		ft_nbargsttwo2(const char *str, char **container, size_t **i)
@@ -77,8 +77,12 @@ void	ft_nbargsttwo9(const char *str, char **container, size_t **i)
 			- ft_strlen(container[**i]) + 1);
 	}
 	else
-		ft_putzerob((tmpa - (tmpa - b))
-			- ft_strlen(container[**i]));
+	{
+		tmpa = (tmpa - (tmpa - b)) - ft_strlen(container[**i]);
+		if (tmpa < 0)
+			return ;
+		ft_putzerob(tmpa);
+	}
 }
 
 int		ft_nbargsttwo10(const char *str, char **container, size_t **i)
@@ -113,6 +117,24 @@ int		ft_nbargsttwo11(const char *str, char **container, size_t **i)
 	tmpa = ft_geta(str) > 0 ? ft_geta(str) : -ft_geta(str);
 	if (b > tmpa)
 		return (ft_nbargsttwo7(str, container, &(*i)));
+	if (is_in(ft_rettype(str), "uid") && b == 0
+		&& ft_geta(str) > ft_strlen(container[**i]))
+	{
+		ft_putspace(ft_geta(str) - ft_strlen(container[**i]));
+		ft_putstr(container[(**i)++]);
+		b = ft_geta(str);
+		free((char *)str);
+		str = 0;
+		return (b);
+	}
+	// if (ft_geta(str) > b && ft_geta(str) > 0
+	// 	&& ft_geta(str) > ft_strlen(container[**i])
+	// 		&& is_in(ft_rettype(str), "uid"))
+	// {
+	// 	ft_putspace(ft_geta(str) - ft_strlen(container[**i]));
+	// 	ft_putstr(container[(**i++)]);
+	// 	return (ft_geta(str));
+	// }
 	if (tmpa > b - ft_strlen(container[**i]) + 1)
 		ft_nbargsttwo9(str, container, &(*i));
 	if (container[**i][0] == '-')

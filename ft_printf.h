@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   ft_printf.h                                      .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: aviscogl <aviscogl@student.le-101.fr>      +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2021/01/28 09:17:49 by bmoulin      #+#   ##    ##    #+#       */
-/*   Updated: 2021/01/31 18:35:28 by aviscogl    ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/28 09:17:49 by bmoulin           #+#    #+#             */
+/*   Updated: 2021/02/01 13:46:20 by bmoulin          ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
+
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
@@ -109,6 +109,7 @@ int					ft_ismalloc(void **str);
 char				*ft_substr(char const *s, unsigned int start, size_t len, int tofree);
 char				*ft_joinptr(char *s1, char s2);
 int					ft_nomallocdflag3(const char *str, char *container, size_t **i);
+char				*ft_strjoin_nos2(char *s1, char *s2);
 
 #endif
 

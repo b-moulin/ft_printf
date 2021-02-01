@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   ft_flagzero3.c                                   .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: aviscogl <aviscogl@student.le-101.fr>      +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2021/01/28 08:57:27 by bmoulin      #+#   ##    ##    #+#       */
-/*   Updated: 2021/01/31 19:33:12 by aviscogl    ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_flagzero3.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/28 08:57:27 by bmoulin           #+#    #+#             */
+/*   Updated: 2021/02/01 13:56:07 by bmoulin          ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
+
 #include "ft_printf.h"
 
 int		ft_nbargsttwo3(const char *str, char **container, size_t **i)
@@ -73,6 +73,13 @@ int		ft_nbargsttwo5(const char *str, char **container, size_t **i)
 		free((char *)str);
 		str = 0;
 		return (tmpa);
+	}
+	if (b > 0 && is_in(ft_rettype(str), "dui")
+		&& b > ft_strlen(container[**i]))
+	{
+		ft_putzerob(b - ft_strlen(container[**i]));
+		ft_putstr(container[(**i)++]);
+		return (b);
 	}
 	ft_putstr(container[**i]);
 	ft_putspace(tmpa - ft_strlen(container[(**i)++]));

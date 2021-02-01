@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   ft_star.c                                        .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: aviscogl <aviscogl@student.le-101.fr>      +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2021/01/11 08:25:55 by bmoulin      #+#   ##    ##    #+#       */
-/*   Updated: 2021/01/31 18:18:43 by aviscogl    ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_star.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/11 08:25:55 by bmoulin           #+#    #+#             */
+/*   Updated: 2021/02/01 14:32:56 by bmoulin          ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
+
 #include "ft_printf.h"
 
 int		ft_starin(const char *str)
@@ -53,7 +53,7 @@ char	*ft_replacestar2(const char *str, char *newstr, size_t j)
 
 char	*ft_replacestar3(const char *str, char *newstr, size_t **i)
 {
-	newstr = newstr = ft_joinptr(newstr, ft_rettype(str));
+	newstr = ft_joinptr(newstr, ft_rettype(str));
 	(**i)++;
 	(**i)++;
 	return (newstr);
@@ -76,24 +76,6 @@ char	*ft_replacestar4(const char *str, char *ctnr, size_t j, char *ns)
 	return (ns);
 }
 
-// char	*ft_nomallocstr(const char *str)
-// {
-// 	size_t	i;
-// 	char	tab[ft_strlen((char *)str)];
-
-// 	i = 0;
-// 	while (str[i])
-// 	{
-// 		tab[i] = str[i];
-// 		i++;
-// 	}
-// 	tab[i] = str[i];
-// 	free ((char *)str);
-// 	str = 0;
-// 	printf("tab : |%s|\n\n", tab);
-// 	return (tab);
-// }
-
 int		ft_stopmalloc(const char *newstr, char **container)
 {
 	size_t	i;
@@ -106,7 +88,7 @@ int		ft_stopmalloc(const char *newstr, char **container)
 		i++;
 	}
 	tab[i] = newstr[i];
-	free ((char *)newstr);
+	free((char *)newstr);
 	newstr = 0;
 	return (ft_flaglist(tab, container, 0));
 }
@@ -122,24 +104,56 @@ int		ft_replacestar(const char *str, char **container, size_t **i)
 		if (str[j++] == '*')
 			newstr = ft_replacestar4(str, container[(**i)++], j - 1, newstr);
 	while (str[j])
+	{
 		if (str[j++] == '*')
 		{
 			if (is_in(ft_rettype(str), "sc") && (container[**i][0] == '0'))
 				newstr = ft_replacestar3(str, newstr, &(*i));
 			else
 			{
-				newstr = !newstr ? ft_substr(str, 0, j - 1, 0) : newstr;
-				newstr = ft_strjoin(newstr, container[(**i)++]);
-				newstr = ft_joinptr(newstr, str[j]);
+				if (container[**i + 1][0] == '0'
+					&& is_in(ft_rettype(str), "dui")
+						&& container[**i][0] == '-')
+				{
+					newstr = !newstr ? ft_substr(str, 0, j - 1, 0) : newstr;
+					newstr = ft_joinptr(newstr, '1');
+					(**i)++;
+				}
+				else
+				{
+					if (ft_geta(str) != 0 && container[**i][0] == '-'
+						&& is_in(ft_rettype(str), "dui"))
+					{
+						newstr = !newstr ? ft_substr(str, 0, j - 1, 0) : newstr;
+						newstr = ft_strjoin_nos2(newstr,
+							ft_itoa(ft_strlen(container[**i + 1])));
+						(**i)++;
+					}
+					else
+					{
+						if (container[**i][0] == '-'
+							&& !is_in(ft_rettype(str), "sc"))
+						{
+							newstr = !newstr
+								? ft_substr(str, 0, j - 1, 0) : newstr;
+							(**i)++;
+						}
+						else
+						{
+							newstr = !newstr
+								? ft_substr(str, 0, j - 1, 0) : newstr;
+							newstr = ft_strjoin(newstr, container[(**i)++]);
+							newstr = ft_joinptr(newstr, str[j]);
+						}
+					}
+				}
 			}
 		}
 		else
 			newstr = ft_replacestar2(str, newstr, j - 1);
+	}
 	if (!(is_in(newstr[ft_strlen(newstr) - 1], "cspdiuxX%")))
-		newstr = ft_strjoin(newstr, ft_retptr(str[j - 1]));
-	// printf("ft_nomallocstr : |%s|\n\n\n", ft_nomallocstr(newstr));
-	// return (0);
-	//return (ft_stopmalloc(newstr, container));
+		newstr = ft_joinptr(newstr, str[j - 1]);
 	free((char *)str);
 	str = 0;
 	return (ft_flaglist(newstr, container, 0));

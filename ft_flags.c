@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   ft_flags.c                                       .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: aviscogl <aviscogl@student.le-101.fr>      +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2021/01/07 11:48:03 by bmoulin      #+#   ##    ##    #+#       */
-/*   Updated: 2021/01/31 18:46:26 by aviscogl    ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_flags.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/07 11:48:03 by bmoulin           #+#    #+#             */
+/*   Updated: 2021/02/01 13:04:49 by bmoulin          ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
+
 #include "ft_printf.h"
 
 int		ft_getafterp(const char *str)
@@ -52,6 +52,16 @@ int		ft_flagxx(const char *str, char **container, size_t **i)
 		|| is_in('u', (char *)str) || is_in('x', (char *)str)
 			|| is_in('X', (char *)str))
 	{
+		if (is_in('d', (char *)str)
+			&& container[**i][0] == '0' && ft_getb(str) < 0)
+		{
+			ret = -ft_getb(str);
+			ft_putspace(ret);
+			free((char *)str);
+			str = 0;
+			(**i)++;
+			return (ret);
+		}
 		ft_putstr(container[**i]);
 		free((char *)str);
 		str = 0;
@@ -83,8 +93,6 @@ int		ft_flag3(const char *str, char **container, size_t **i)
 			|| is_in('i', (char *)str) || is_in('x', (char *)str)
 				|| is_in('X', (char *)str))
 		{
-			free ((char *)str);
-			str = 0;
 			return (ft_flagx(str, container, &(*i), j));
 		}
 		ft_putstr(container[**i]);

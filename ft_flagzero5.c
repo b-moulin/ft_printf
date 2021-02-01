@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   ft_flagzero5.c                                   .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: aviscogl <aviscogl@student.le-101.fr>      +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2021/01/28 09:02:03 by bmoulin      #+#   ##    ##    #+#       */
-/*   Updated: 2021/01/31 22:04:44 by aviscogl    ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_flagzero5.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/28 09:02:03 by bmoulin           #+#    #+#             */
+/*   Updated: 2021/02/01 15:11:01 by bmoulin          ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
+
 #include "ft_printf.h"
 
 int		ft_nbargsttwo12(const char *str, char **container, size_t **i)
@@ -30,6 +30,13 @@ int		ft_nbargsttwo12(const char *str, char **container, size_t **i)
 	}
 	if (ft_geta(str) < 0)
 		return (ft_nbargsttwo5(str, container, &(*i)));
+	if (ft_geta(str) > 0 && b < 0
+		&& is_in(ft_rettype(str), "uid") && -b > ft_strlen(container[**i]))
+	{
+		ft_putstr(container[**i]);
+		ft_putspace(-b - ft_strlen(container[(**i)++]));
+		return (-b);
+	}
 	if (ft_geta(str) > b)
 		if (b != 0)
 			negret = ft_nbargsttwo6(str, container, &(*i));
@@ -41,6 +48,7 @@ int		ft_nbargsttwo12(const char *str, char **container, size_t **i)
 		ft_putstr(container[**i]);
 	free((char *)str);
 	str = 0;
+	(**i)++;
 	return (tmpa);
 }
 

@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   ft_flaglist.c                                    .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: aviscogl <aviscogl@student.le-101.fr>      +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2021/01/07 08:52:59 by bmoulin      #+#   ##    ##    #+#       */
-/*   Updated: 2021/01/31 22:02:13 by aviscogl    ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_flaglist.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/07 08:52:59 by bmoulin           #+#    #+#             */
+/*   Updated: 2021/02/01 15:47:18 by bmoulin          ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
+
 #include "ft_printf.h"
 
 int		ft_cutflag(const char *str, char **container, size_t **i)
@@ -88,17 +88,17 @@ int		ft_flaglist(const char *str, char **container, int reset)
 		*i = 0;
 	}
 	malstr = ft_returnflag(str);
-	if (ft_rettype(malstr) == '%')
-	{
-		free(malstr);
-		malstr = 0;
-		return (ft_percflag(str));
-	}
 	if (ft_starin(str))
 	{
 		free(malstr);
 		malstr = 0;
 		return (ft_replacestar(str, container, &i));
+	}
+	if (ft_rettype(malstr) == '%')
+	{
+		free(malstr);
+		malstr = 0;
+		return (ft_percflag(str));
 	}
 	if (ft_rettype(malstr) == 'p')
 	{

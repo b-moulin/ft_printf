@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   ft_printf.c                                      .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: aviscogl <aviscogl@student.le-101.fr>      +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2021/01/04 07:27:59 by bmoulin      #+#   ##    ##    #+#       */
-/*   Updated: 2021/01/31 23:30:11 by aviscogl    ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/04 07:27:59 by bmoulin           #+#    #+#             */
+/*   Updated: 2021/02/01 15:55:05 by bmoulin          ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
+
 #include "ft_printf.h"
 
 void	ft_putstr_len(const char *str, const size_t	len)
@@ -73,16 +73,21 @@ int		ft_getflag(const char *str, int restart)
 
 	if (restart == 1)
 		return (ft_resetstatic(&i, &percenton));
+//	printf("str[i] : |%s|\n\n", str + i);
 	while (str[i])
 	{
 		if ((str[i] == '%' && str[i + 1] != '%') || percenton == 1)
 		{
 			percenton = 1;
-			while (str[i] && is_in(str[i], "cspdiuxX*") != 1)
+			i++;
+			while (str[i] && is_in(str[i], "cspdiuxX*%") != 1)
 				i++;
+			// printf("str[i] : |%c|\n\n", str[i]);
 			if (str[i] == '*')
-				return (i++ < 9999 ? 2 : 2);
+				return (i < 9999 ? 2 : 2);
 			percenton = 0;
+			if (str[i] == '%')
+				return (321);
 			if (ft_getflag2(str[i], str[i - 1]) != 0)
 				return (ft_getflag2(str[i], str[i - 1]));
 		}
@@ -130,17 +135,9 @@ int		ft_address2(char *addr, const char *str)
 		str = 0;
 		return (tmpa);
 	}
-	if (addr[0] == '0')
-	{
-		write(1, "(nil)", 5);
-		a = 5;
-	}
-	else
-	{
-		write(1, "0x", 2);
-		ft_putstr(addr);
-		a = ft_strlen(addr) + 2;
-	}
+	write(1, "0x", 2);
+	ft_putstr(addr);
+	a = ft_strlen(addr) + 2;
 	free(addr);
 	addr = 0;
 	free((char *)str);
@@ -163,16 +160,8 @@ int		ft_address(const char *str, char *container)
 	str = 0;
 	if (tmpa <= ft_strlen(addr) + 2)
 	{
-		if (addr[0] == '0')
-		{
-			write(1, "(nil)", 5);
-			a = 5;
-		}
-		else
-		{
-			write(1, "0x", 2);
-			a = ft_strlen(addr) + 2;
-		}
+		write(1, "0x", 2);
+		a = ft_strlen(addr) + 2;
 		ft_putstr(addr);
 		free (addr);
 		addr = 0;
@@ -182,34 +171,18 @@ int		ft_address(const char *str, char *container)
 	}
 	if (a > 0)
 	{
-		if (addr[0] == '0')
-		{
-			ft_putspace(a - 5);
-			write(1, "(nil)", 5);
-		}
-		else
-		{
-			ft_putspace(a - ft_strlen(addr) - 2);
-			write(1, "0x", 2);
-			ft_putstr(addr);
-		}
+		ft_putspace(a - ft_strlen(addr) - 2);
+		write(1, "0x", 2);
+		ft_putstr(addr);
 		free (addr);
 		addr = 0;
 		free((char *)str);
 		str = 0;
 		return (a);
 	}
-	if (addr[0] == '0')
-	{
-		write(1, "(nil)", 5);
-		ft_putspace(tmpa - 5);
-	}
-	else
-	{
-		write(1, "0x", 2);
-		ft_putstr(addr);
-		ft_putspace(tmpa - ft_strlen(addr) - 2);
-	}
+	write(1, "0x", 2);
+	ft_putstr(addr);
+	ft_putspace(tmpa - ft_strlen(addr) - 2);
 	free (addr);
 	addr = 0;
 	free((char *)str);
@@ -261,82 +234,86 @@ int		ft_printf(const char *str, ...)
 	i = 0;
 	while (getflag != 0)
 	{
-		if (i == 0)
+		//printf("ICI|%d|\n", getflag);
+		if (getflag != 321)
 		{
-			free (args[0]);
-			args[0] = 0;
-		}
-		if (getflag == 21)
-		{
-			str = va_arg(arg, void *);
-			args[i] = ft_strdup("HELLO");
-		}
-		else if (getflag == 1 || getflag == 3)
-		{
-			if (getflag == 1)
+			if (i == 0)
 			{
-				str = va_arg(arg, const char *);
+				free (args[0]);
+				args[0] = 0;
+			}
+			if (getflag == 21)
+			{
+				str = va_arg(arg, void *);
+				args[i] = ft_strdup("HELLO");
+			}
+			else if (getflag == 1 || getflag == 3)
+			{
+				if (getflag == 1)
+				{
+					str = va_arg(arg, const char *);
+					if (!str)
+						args[i] = ft_strdup("(null)");
+					else
+						args[i] = ft_strdup((char *)str);
+				}
+				else
+				{
+					c[1] = 0;
+					c[0] = va_arg(arg, const int);
+					str = (char *)c;
+					if (c[0] == 0)
+						args[i] = ft_strdup("");
+					else
+						args[i] = ft_strdup((char *)str);
+				}
+			}
+			else if (getflag == 10)
+			{
+				str = ft_itoa((unsigned long long)va_arg(arg, void *));
+				args[i] = ft_strjoin_nos1("", (char *)str);
+			}
+			else if (getflag == 66 || getflag == 67)
+			{
+				str = ft_itoa((unsigned int)va_arg(arg, unsigned int));
 				if (!str)
-					args[i] = ft_strdup("(null)");
-				else
+					str = ft_strdup("(null)");
+				if (getflag == 66)
+				{
+					str = ft_nbrbase(ft_atoi(str), "0123456789abcdef");
 					args[i] = ft_strdup((char *)str);
-			}
-			else
-			{
-				c[1] = 0;
-				c[0] = va_arg(arg, const int);
-				str = (char *)c;
-				if (c[0] == 0)
-					args[i] = ft_strdup("");
+					free((char *)str);
+					str = 0;
+				}
 				else
+				{
+					str = ft_nbrbase(ft_atoi(str), "0123456789ABCDEF");
 					args[i] = ft_strdup((char *)str);
+					free((char *)str);
+					str = 0;
+				}
 			}
-		}
-		else if (getflag == 10)
-		{
-			str = ft_itoa((unsigned long long)va_arg(arg, void *));
-			args[i] = ft_strjoin_nos1("", (char *)str);
-		}
-		else if (getflag == 66 || getflag == 67)
-		{
-			str = ft_itoa((unsigned int)va_arg(arg, unsigned int));
-			if (!str)
-				str = ft_strdup("(null)");
-			if (getflag == 66)
+			else if (getflag == 15)
 			{
-				str = ft_nbrbase(ft_atoi(str), "0123456789abcdef");
+				str = ft_itoa(va_arg(arg, unsigned int));
+				if (!str)
+					str = ft_strdup("(null)");
 				args[i] = ft_strdup((char *)str);
-				free((char *)str);
+				free ((char *)str);
 				str = 0;
 			}
 			else
 			{
-				str = ft_nbrbase(ft_atoi(str), "0123456789ABCDEF");
+				str = ft_itoa(va_arg(arg, int));
+				if (!str)
+					str = ft_strdup("(null)");
 				args[i] = ft_strdup((char *)str);
-				free((char *)str);
+				free ((char *)str);
 				str = 0;
 			}
-		}
-		else if (getflag == 15)
-		{
-			str = ft_itoa(va_arg(arg, unsigned int));
-			if (!str)
-				str = ft_strdup("(null)");
-			args[i] = ft_strdup((char *)str);
-			free ((char *)str);
-			str = 0;
-		}
-		else
-		{
-			str = ft_itoa(va_arg(arg, int));
-			if (!str)
-				str = ft_strdup("(null)");
-			args[i] = ft_strdup((char *)str);
-			free ((char *)str);
-			str = 0;
+			i++;
 		}
 		getflag = ft_getflag(first, 0);
-		i++;
 	}
 	if (i == 0)
 		free((char *)args[i]);
@@ -356,35 +333,37 @@ int		ft_printf(const char *str, ...)
 	return (ret);
 }
 
-// int		main(void)
-// {
-// 	setbuf(stdout, NULL);
-// 	int		ret;
-// 	int		ret2;
-
-// 	ret = printf("%%*.c%c%%*.s*%ps%%*.X\n", '0', NULL);
-// 	ret2 = ft_printf("%%*.c%c%%*.s*%ps%%*.X\n", '0', NULL);
-	
-// }
-
 int main ()
 {
-	int ret;
-	int ret2;
-	char *test;
 	setbuf(stdout, NULL);
 
-	test = malloc(sizeof(char) * (5 + 1));
-	free(test);
-	test = NULL;
+	int		a = -4;
+	int		b = 0;
+	char	c = 'a';
+	int		d = 2147483647;
+	int		e = -2147483648;
+	int		f = 42;
+	int		g = 25;
+	int		h = 4200;
+	int		i = 8;
+	int		j = -12;
+	int		k = 123456789;
+	int		l = 0;
+	int		m = -12345678;
+	char	*n = "abcdefghijklmnop";
+	char	*o = "-a";
+	char	*p = "-12";
+	char	*q = "0";
+	char	*r = "%%";
+	char	*s = "-2147483648";
+	char	*t = "0x12345678";
+	char	*u = "-0";
 
-	printf("Variables testees : None\n");
-	ret =     	printf("V -24%%[%-54%] / -2%%[%-2%]\n");
-	ret2 = 		ft_printf("F -24%%[%-54%] / -2%%[%-2%]\n");
-	printf("V=%i F=%i  ", ret, ret2);
-	if (ret != ret2)
-		printf("\033[1;31m%s\033[0m\n", "KO");
-	else
-		printf("\033[1;32m%s\033[0m\n", "OK");
-	
+	int		ret;
+	int 	ret2;
+	a = 4;
+	ret = printf("%.*i, %.*d, %.*d, %.*d, %.*d, %.*d, %.*d, %.*d\n", a, i, a, j, a, k, a, l, a, m, a, c, a, e, a, d);
+	ret2 = ft_printf("%.*i, %.*d, %.*d, %.*d, %.*d, %.*d, %.*d, %.*d\n", a, i, a, j, a, k, a, l, a, m, a, c, a, e, a, d);
+
+	printf("V : %d|F : %d\n", ret, ret2);
 }

@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   ft_doubleflag.c                                  .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: aviscogl <aviscogl@student.le-101.fr>      +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2021/01/07 15:42:43 by bmoulin      #+#   ##    ##    #+#       */
-/*   Updated: 2021/01/31 20:35:33 by aviscogl    ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_doubleflag.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/07 15:42:43 by bmoulin           #+#    #+#             */
+/*   Updated: 2021/02/01 15:26:00 by bmoulin          ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
+
 #include "ft_printf.h"
 
 int		ft_flagdouble6(const char *str, char **container, size_t **i)
@@ -73,7 +73,7 @@ int		ft_flagdouble7(const char *str, char **container, size_t **i)
 		ft_putstr(container[**i]);
 		free((char *)str);
 		str = 0;
-		return (ft_strlen(container[**i]));
+		return (ft_strlen(container[(**i)++]));
 	}
 	ft_putspace(tmpa - ft_strlen(container[**i]));
 	ft_putstr(container[(**i)++]);
@@ -96,6 +96,7 @@ int		ft_flagdouble(const char *str, char **container, size_t **i)
 	{
 		free ((char *)str);
 		str = 0;
+		(**i)++;
 		return (ft_putspace(tmpa));
 	}
 	if (ft_rettype(str) == 'c' || ft_rettype(str) == 's')

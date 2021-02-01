@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   ft_flagzero2.c                                   .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: aviscogl <aviscogl@student.le-101.fr>      +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2021/01/27 16:34:13 by bmoulin      #+#   ##    ##    #+#       */
-/*   Updated: 2021/01/31 22:02:58 by aviscogl    ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_flagzero2.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/27 16:34:13 by bmoulin           #+#    #+#             */
+/*   Updated: 2021/02/01 15:52:09 by bmoulin          ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
+
 #include "ft_printf.h"
 
 int		ft_retzero2(const char *str, char **container, size_t **i)
@@ -45,10 +45,17 @@ int		ft_retzero(const char *str, char **container, size_t **i)
 		str = 0;
 		return (ft_strlen(container[(**i)++]));
 	}
-	if (container[**i][0] == '-')
-		write(1, "-", 1);
+	// // if (container[**i][0] == '-')
+	// // 	write(1, "-", 1);
+	// // if (a < 0)
+	// // 	ft_putstr(container[(**i)]);
+	// printf("here : %s\n", str);
 	if (a < 0)
-		ft_putstr(container[(**i)]);
+	{
+		ft_putstr(container[**i]);
+		ft_putspace(tmpa - ft_strlen(container[(**i)++]));
+		return (tmpa);
+	}
 	while (j < (tmpa - ft_strlen(container[(**i)])))
 	{
 		if (a < 0)
@@ -104,6 +111,7 @@ int		ft_retun(const char *str, char **container, size_t **i)
 	{
 		free((char *)str);
 		str = 0;
+		(**i)++;
 		return (0);
 	}
 	if (size >= b)
