@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:25:46 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/01 15:47:39 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/02 15:31:46 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_nbargsttwo14(const char *str, char **container, size_t **i)
 		ft_putspace(ft_strlen(container[**i]));
 	else
 		ft_putstr(container[**i]);
-	free ((char *)str);
+	free((char *)str);
 	str = 0;
 }
 
@@ -57,8 +57,14 @@ int		ft_nbargsttwo(const char *str, char **container, size_t **i)
 
 	a = ft_geta(str);
 	tmpa = a > 0 ? a : -a;
-	if ((a == 0 && ft_getb(str) < 0 && !(is_in(ft_rettype(str), "sc")))
-		|| (a == 0 && ft_getb(str) < ft_strlen(container[**i])
+	if (is_in(ft_rettype(str), "sc") && thereisnullb(str))
+	{
+		//(**i)++;
+		return (0);
+	}
+	if ((a == 0 && ft_getb(str) < 0
+		&& !(is_in(ft_rettype(str), "sc")))
+		|| (a == 0 && (ft_getb(str) < ft_strlen(container[**i]))
 			&& is_in(ft_rettype(str), "sc")))
 		return (ft_nbargsttwo15(str, container, &(*i)));
 	if ((ft_getb(str) == 0 && a == 0 && ft_rettype(str) == 's')

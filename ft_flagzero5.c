@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 09:02:03 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/01 15:11:01 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/02 15:41:38 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,16 @@ int		ft_nbargsttwo12(const char *str, char **container, size_t **i)
 
 	b = ft_getb(str);
 	tmpa = ft_geta(str) > 0 ? ft_geta(str) : -ft_geta(str);
-	if (b == 0 && container[**i][0] == '0')
+	if (b == 0 && container[**i][0] == '0' && !is_in(ft_rettype(str), "xX") )
 	{
+		// if (is_in(ft_rettype(str), "xX") && -ft_geta(str) == 1)
+		// {
+		// 	write(1, "0", 1);
+		// 	(**i)++;
+		// 	free((char *)str);
+		// 	str = 0;
+		// 	return (1);
+		// }
 		ft_putspace(tmpa);
 		(**i)++;
 		free((char *)str);

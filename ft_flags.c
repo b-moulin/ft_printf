@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 11:48:03 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/01 13:04:49 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/02 14:45:56 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ int		ft_flag2(const char *str, char **container, size_t **i)
 		(**i)++;
 		free((char *)str);
 		str = 0;
+		//printf("here");
 		return (0);
 	}
 	if (str[1] == '.' && str[2] == 'c')

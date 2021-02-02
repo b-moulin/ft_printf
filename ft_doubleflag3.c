@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 16:24:05 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/01 15:26:11 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/02 15:20:51 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		ft_flagdouble2(const char *str, char **container, size_t **i)
 	a = ft_geta(str);
 	b = ft_getb(str);
 	if (a < 0 && b < 0 && is_in(ft_rettype(str), "sc")
-		&& -b <= ft_strlen(container[**i]))
+		&& -a <= ft_strlen(container[**i]))
 	{
 		ft_putstr(container[**i]);
 		return (ft_strlen(container[(**i)++]));
@@ -100,6 +100,8 @@ int		ft_flagdouble4(const char *str, char **container, size_t **i)
 	b = ft_getb(str);
 	if (container[**i][0] == '-')
 	{
+		if (a > b)
+			ft_putspace(a - b - 1);
 		write(1, "-", 1);
 		ft_putzerob(b - ft_strlen(container[**i]) + 1);
 		ft_putstr(container[(**i)++] + 1);

@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 08:52:59 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/01 15:47:18 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/02 15:30:40 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,19 @@ int		ft_flaglist3(const char *str, char **container, size_t **i)
 	free((char *)str);
 	str = 0;
 	return (ft_strlen(container[(**i)++]));
+}
+
+int		thereisnullb(const char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i] && str[i] != '.')
+		i++;
+	if (str[i] == '.')
+		if (str[i + 1] == '0' || is_in(str[i + 1], "cspdiuxX"))
+			return (1);
+	return (0);
 }
 
 int		ft_flaglist(const char *str, char **container, int reset)

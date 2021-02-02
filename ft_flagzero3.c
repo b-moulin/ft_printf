@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 08:57:27 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/01 13:56:07 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/02 10:50:39 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		ft_nbargsttwo3(const char *str, char **container, size_t **i)
 	tmpa = a > 0 ? a : -a;
 	if (b == 0 && a == 0 && ft_rettype(str) == 's')
 	{
-		(**i)++;
+		//(**i)++;
 		return (0);
 	}
 	if (a == 0 && ft_rettype(str) == 'c')
@@ -48,7 +48,9 @@ int		ft_nbargsttwo4(const char *str, char **container, size_t **i)
 	if (container[**i][0] == '-')
 	{
 		write(1, "-", 1);
-		ft_putzerob(b - ft_strlen(container[**i]) + 1);
+		a = b - ft_strlen(container[**i]) + 1;
+		if (a > 0)
+			ft_putzerob(a);
 		ft_putstr(container[(**i)++] + 1);
 		return (b + 1);
 	}
@@ -128,11 +130,28 @@ int		ft_nbargsttwo7(const char *str, char **container, size_t **i)
 	tmpa = a > 0 ? a : -a;
 	if (container[**i][0] == '-')
 		write(1, "-", 1);
+	if ((a == b) && is_in(ft_rettype(str), "dui"))
+	{
+		if (container[**i][0] == '-')
+		{
+			ft_putzerob(1 + tmpa - ft_strlen(container[**i]));
+			ft_putstr(container[(**i)++] + 1);
+			free((char *)str);
+			str = 0;
+			return (tmpa + 1);
+		}
+		ft_putzerob(tmpa - ft_strlen(container[**i]));
+		ft_putstr(container[(**i)++]);
+		free((char *)str);
+		str = 0;
+		return (tmpa);
+	}
 	if (b > tmpa - ft_strlen(container[**i]) + 1
 		&& is_in(ft_rettype(str), "dui"))
 		ft_putzerob((tmpa - (tmpa - b
-			+ (container[**i][0] == '0' ? 1 : 0)))
-			- ft_strlen(container[**i]) + 1);
+			+ (container[**i][0] == '0' && b == 0 ? 1 : 0)))
+			- ft_strlen(container[**i]));
+	//printf("here");
 	if (b > tmpa - ft_strlen(container[**i]) + 1
 		&& !(is_in(ft_rettype(str), "dui")))
 		ft_putzerob((tmpa - (tmpa - b + 1))

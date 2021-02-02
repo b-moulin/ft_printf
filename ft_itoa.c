@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 13:19:11 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/01 12:43:53 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/02 13:15:52 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,13 @@ char				*ft_itoa(long long n)
 	return (ft_filldest(lln, ft_lendest(lln), dest));
 }
 
-int					ft_putspace(unsigned long nb)
+int					ft_putspace(long long nb)
 {
 	unsigned long ret;
 
 	ret = nb;
+	if (nb < 0)
+		return (0);
 	while (nb-- > 0)
 		write(1, " ", 1);
 	return (ret);
@@ -97,11 +99,22 @@ int					ft_getaftert(const char *str)
 	size_t	start;
 	int		ret;
 
-	i = 0;
+	i = 1;
 	j = 0;
 	start = 1;
+	while (str[i] && (str[i] == '-' || str[i] == '0'))
+	{
+		i++;
+		start++;
+	}
+	if (start > 1)
+		start--;
+	if (str[i] && str[i] == '0')
+		return (0);
+	i--;
 	while ((str[++i] >= '0' && str[i] <= '9') || str[i] == '-' || str[i] == '+')
 		j++;
-	ret = ft_atoi(ft_substr(str, start, j, 0));
+	//printf("start : %s\n", ft_substr(str, start, j, 0));
+	ret = ft_atoi(ft_substr(str, start, j + 1, 0));
 	return (ret);
 }

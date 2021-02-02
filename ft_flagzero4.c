@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 08:59:58 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/01 15:18:14 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/02 10:32:37 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@ int		ft_nbargsttwo2(const char *str, char **container, size_t **i)
 	long	b;
 
 	b = ft_getb(str);
-	if (container[**i][0] == '0')
+	if (container[**i][0] == '0' && b == 0 && is_in(ft_rettype(str), "dui"))
 	{
 		free ((char *)str);
 		str = 0;
+		(**i)++;
 		return (0);
 	}
 	if ((b >= ft_strlen(container[**i]) || b == 0)
@@ -34,6 +35,7 @@ int		ft_nbargsttwo2(const char *str, char **container, size_t **i)
 	ft_putstr_len(container[**i], b);
 	free ((char *)str);
 	str = 0;
+	(**i)++;
 	return (b);
 }
 
@@ -115,7 +117,7 @@ int		ft_nbargsttwo11(const char *str, char **container, size_t **i)
 
 	b = ft_getb(str);
 	tmpa = ft_geta(str) > 0 ? ft_geta(str) : -ft_geta(str);
-	if (b > tmpa)
+	if (b >= tmpa)
 		return (ft_nbargsttwo7(str, container, &(*i)));
 	if (is_in(ft_rettype(str), "uid") && b == 0
 		&& ft_geta(str) > ft_strlen(container[**i]))
@@ -127,14 +129,6 @@ int		ft_nbargsttwo11(const char *str, char **container, size_t **i)
 		str = 0;
 		return (b);
 	}
-	// if (ft_geta(str) > b && ft_geta(str) > 0
-	// 	&& ft_geta(str) > ft_strlen(container[**i])
-	// 		&& is_in(ft_rettype(str), "uid"))
-	// {
-	// 	ft_putspace(ft_geta(str) - ft_strlen(container[**i]));
-	// 	ft_putstr(container[(**i++)]);
-	// 	return (ft_geta(str));
-	// }
 	if (tmpa > b - ft_strlen(container[**i]) + 1)
 		ft_nbargsttwo9(str, container, &(*i));
 	if (container[**i][0] == '-')

@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 07:27:59 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/01 15:55:05 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/02 15:48:50 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -333,37 +333,50 @@ int		ft_printf(const char *str, ...)
 	return (ret);
 }
 
-int main ()
-{
-	setbuf(stdout, NULL);
+// int main ()
+// {
+// 	setbuf(stdout, NULL);
 
-	int		a = -4;
-	int		b = 0;
-	char	c = 'a';
-	int		d = 2147483647;
-	int		e = -2147483648;
-	int		f = 42;
-	int		g = 25;
-	int		h = 4200;
-	int		i = 8;
-	int		j = -12;
-	int		k = 123456789;
-	int		l = 0;
-	int		m = -12345678;
-	char	*n = "abcdefghijklmnop";
-	char	*o = "-a";
-	char	*p = "-12";
-	char	*q = "0";
-	char	*r = "%%";
-	char	*s = "-2147483648";
-	char	*t = "0x12345678";
-	char	*u = "-0";
+// 	int		a = -4;
+// 	int		b = 0;
+// 	char	c = 'a';
+// 	int		d = 2147483647;
+// 	int		e = -2147483648;
+// 	int		f = 42;
+// 	int		g = 25;
+// 	int		h = 4200;
+// 	int		i = 8;
+// 	int		j = -12;
+// 	int		k = 123456789;
+// 	int		l = 0;
+// 	int		m = -12345678;
+// 	char	*n = "abcdefghijklmnop";
+// 	char	*o = "-a";
+// 	char	*p = "-12";
+// 	char	*q = "0";
+// 	char	*r = "%%";
+// 	char	*s = "-2147483648";
+// 	char	*t = "0x12345678";
+// 	char	*u = "-0";
 
-	int		ret;
-	int 	ret2;
-	a = 4;
-	ret = printf("%.*i, %.*d, %.*d, %.*d, %.*d, %.*d, %.*d, %.*d\n", a, i, a, j, a, k, a, l, a, m, a, c, a, e, a, d);
-	ret2 = ft_printf("%.*i, %.*d, %.*d, %.*d, %.*d, %.*d, %.*d, %.*d\n", a, i, a, j, a, k, a, l, a, m, a, c, a, e, a, d);
+// 	int		ret;
+// 	int 	ret2;
+// 	a = 1;
 
-	printf("V : %d|F : %d\n", ret, ret2);
-}
+// 	b = -1;
+// 	// ft_printf("%*.*X, %*.*u, %*.*x", a, b, l, a, b, m, a, b, m);
+
+// 	//Test 1
+// 	//ft_printf("%*.*u, %*.*x, %*.*X, %*.*u, %*.*x, %*.*X, %*.*u, %*.*x, %*.*X, %*.*u, %*.*x, %*.*X, %*.*u, %*.*x, %*.*X, %*.*u, %*.*x, %*.*X, %*.*u, %*.*x, %*.*X, %*.*u, %*.*x, %*.*X", a, b, i, a, b, i, a, b, i, a, b, j, a, b, j, a, b, j, a, b, k, a, b, k, a, b, k, a, b, l, a, b, l, a, b, l, a, b, m, a, b, m, a, b, m, a, b, c, a, b, c, a, b, c, a, b, d, a, b, d, a, b, d, a, b, e, a, b, e, a, b, e);
+// 	//Test 2
+// 	//printf("%0*.*u, %0*.*x, %0*.*X, %0*.*u, %0*.*x, %0*.*X, %0*.*u, %0*.*x, %0*.*X, %0*.*u, %0*.*x, %0*.*X, %0*.*u, %0*.*x, %0*.*X, %0*.*u, %0*.*x, %0*.*X, %0*.*u, %0*.*x, %0*.*X, %0*.*u, %0*.*x, %0*.*X", a, b, i, a, b, i, a, b, i, a, b, j, a, b, j, a, b, j, a, b, k, a, b, k, a, b, k, a, b, l, a, b, l, a, b, l, a, b, m, a, b, m, a, b, m, a, b, c, a, b, c, a, b, c, a, b, d, a, b, d, a, b, d, a, b, e, a, b, e, a, b, e);
+// 	//Test 3
+// 	//printf("%-*.*u, %-*.*x, %-*.*X, %-*.*u, %-*.*x, %-*.*X, %-*.*u, %-*.*x, %-*.*X, %-*.*u, %-*.*x, %-*.*X, %-*.*u, %-*.*x, %-*.*X, %-*.*u, %-*.*x, %-*.*X, %-*.*u, %-*.*x, %-*.*X, %-*.*u, %-*.*x, %-*.*X", a, b, i, a, b, i, a, b, i, a, b, j, a, b, j, a, b, j, a, b, k, a, b, k, a, b, k, a, b, l, a, b, l, a, b, l, a, b, m, a, b, m, a, b, m, a, b, c, a, b, c, a, b, c, a, b, d, a, b, d, a, b, d, a, b, e, a, b, e, a, b, e);
+
+// 	a = 0;
+// 	b = -1;
+
+// 	ret2 = printf("V %*.*X\n", a, b, l);
+// 	ret = ft_printf("F %*.*X\n", a, b, l);
+// 	printf("V : %d|F : %d\n", ret2, ret);
+// }

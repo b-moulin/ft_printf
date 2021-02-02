@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 16:34:13 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/01 15:52:09 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/02 13:24:46 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,30 @@ int		ft_retzero(const char *str, char **container, size_t **i)
 	j = 0;
 	if (ft_strlen(container[**i]) >= tmpa)
 	{
+		if (ft_rettype(str) == 'c' && container[**i][0] == 0)
+		{
+			write(1, "\0", 1);
+			free((char *)str);
+			str = 0;
+			(**i)++;
+			return (1);
+		}
 		ft_putstr(container[**i]);
 		free((char *)str);
 		str = 0;
 		return (ft_strlen(container[(**i)++]));
 	}
-	// // if (container[**i][0] == '-')
-	// // 	write(1, "-", 1);
-	// // if (a < 0)
-	// // 	ft_putstr(container[(**i)]);
-	// printf("here : %s\n", str);
+	if (container[**i][0] == '-')
+		write(1, "-", 1);
+	// if (a < 0)
+	// 	ft_putstr(container[(**i)]);
+	//printf("here : %s\n", str);
 	if (a < 0)
 	{
-		ft_putstr(container[**i]);
+		if (container[**i][0] == '-')
+			ft_putstr(container[**i] + 1);
+		else
+			ft_putstr(container[**i]);
 		ft_putspace(tmpa - ft_strlen(container[(**i)++]));
 		return (tmpa);
 	}

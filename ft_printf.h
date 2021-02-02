@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 09:17:49 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/01 13:46:20 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/02 12:52:08 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int					ft_geta(const char *str);
 int					ft_getb(const char *str);
 char				ft_rettype(const char *str);
 int					ft_sab(const char *str, char **container, size_t **i);
-int					ft_putspace(unsigned long nb);
+int					ft_putspace(long long nb);
 int					ft_sba(const char *str, char **container, size_t **i);
 int					ft_flag5(const char *str, char **container, size_t **i);
 char				*ft_returnflag(const char *str);
@@ -64,7 +64,7 @@ int					ft_percflag(const char *str);
 int					ft_prctzero(const char *str, int two);
 int					ft_prctwo(const char *str);
 int					ft_address(const char *str, char *container);
-int					ft_putzerob(unsigned long nb);
+int					ft_putzerob(long long nb);
 int					ft_starin(const char *str);
 int					ft_getprcta(const char *str);
 char				*ft_retptr(const char c);
@@ -110,6 +110,7 @@ char				*ft_substr(char const *s, unsigned int start, size_t len, int tofree);
 char				*ft_joinptr(char *s1, char s2);
 int					ft_nomallocdflag3(const char *str, char *container, size_t **i);
 char				*ft_strjoin_nos2(char *s1, char *s2);
+int					thereisnullb(const char *str);
 
 #endif
 

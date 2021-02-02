@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   ft_doubledistrib.c                               .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: aviscogl <aviscogl@student.le-101.fr>      +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2021/01/08 07:39:32 by bmoulin      #+#   ##    ##    #+#       */
-/*   Updated: 2021/01/31 18:33:46 by aviscogl    ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_doubledistrib.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/08 07:39:32 by bmoulin           #+#    #+#             */
+/*   Updated: 2021/02/02 15:17:55 by bmoulin          ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
+
 #include "ft_printf.h"
 
 char	*ft_a(const char *str, char **container, size_t **i)
@@ -25,8 +25,10 @@ char	*ft_a(const char *str, char **container, size_t **i)
 	return (0);
 }
 
-int		ft_putzerob(unsigned long nb)
+int		ft_putzerob(long long nb)
 {
+	if (nb < 0)
+		return (0);
 	while (nb-- > 0)
 		write(1, "0", 1);
 	return (nb);
@@ -41,15 +43,30 @@ int		ft_sba2(const char *str, char **container, size_t **i)
 	a = ft_geta(str);
 	b = ft_getb(str);
 	tmpa = a < 0 ? -a : a;
+	if (b > 0 && a < 0 && tmpa < b && is_in(ft_rettype(str), "sc"))
+	{
+		ft_putstr_len(container[**i], b);
+		if (b < ft_strlen(container[**i]))
+			ft_putspace(tmpa - b);
+		else
+			ft_putspace((tmpa - ft_strlen(container[**i])));
+		free((char *)str);
+		str = 0;
+		if (b > ft_strlen(container[**i]))
+			b = tmpa;
+		(**i)++;
+		return (b);
+	}
 	if (tmpa > b)
 	{
 		ft_putstr_len(container[**i], b);
 		if (b < ft_strlen(container[**i]))
 			ft_putspace(tmpa - b);
 		else
-			ft_putspace((tmpa - ft_strlen(container[(**i)++])));
+			ft_putspace((tmpa - ft_strlen(container[**i])));
 		free((char *)str);
 		str = 0;
+		(**i)++;
 		return (tmpa);
 	}
 	ft_putstr(container[**i]);
