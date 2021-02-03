@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   ft_doubledistrib2.c                              .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: aviscogl <aviscogl@student.le-101.fr>      +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2021/01/27 16:08:06 by bmoulin      #+#   ##    ##    #+#       */
-/*   Updated: 2021/01/31 18:35:10 by aviscogl    ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_doubledistrib2.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/27 16:08:06 by bmoulin           #+#    #+#             */
+/*   Updated: 2021/02/03 14:41:18 by bmoulin          ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
+
 #include "ft_printf.h"
 
 int		ft_valuept(const char *str, int tofree)
@@ -60,6 +60,7 @@ int		ft_dflag3(const char *str, char *container, size_t **i)
 	size_t	j;
 
 	j = 0;
+	//printf("here");
 	if (ft_strlen(container) < ft_valuept(str, 0))
 	{
 		while (j < ft_valuept(str, 0) - ft_strlen(container))
@@ -73,9 +74,14 @@ int		ft_dflag3(const char *str, char *container, size_t **i)
 	}
 	else
 	{
+		// printf("h-");
 		ft_putstr(container);
 		(**i)++;
-		return (ft_valuept(str, 1));
+		j = ft_strlen(container);
+		free((char *)str);
+		str = 0;
+		return (j);
+		//return (ft_valuept(str, 1));
 	}
 }
 

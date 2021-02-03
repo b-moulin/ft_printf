@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:25:46 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/02 15:31:46 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/03 16:37:42 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		ft_nbargsttwo(const char *str, char **container, size_t **i)
 	tmpa = a > 0 ? a : -a;
 	if (is_in(ft_rettype(str), "sc") && thereisnullb(str))
 	{
-		//(**i)++;
+		(**i)++;
 		return (0);
 	}
 	if ((a == 0 && ft_getb(str) < 0

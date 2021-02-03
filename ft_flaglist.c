@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 08:52:59 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/02 15:30:40 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/03 16:37:19 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int		thereisnullb(const char *str)
 	while (str[i] && str[i] != '.')
 		i++;
 	if (str[i] == '.')
-		if (str[i + 1] == '0' || is_in(str[i + 1], "cspdiuxX"))
+		if (is_in(str[i + 1], "cspdiuxX"))
 			return (1);
 	return (0);
 }

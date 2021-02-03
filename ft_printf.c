@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 07:27:59 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/02 15:48:50 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/03 16:40:13 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -361,22 +361,36 @@ int		ft_printf(const char *str, ...)
 
 // 	int		ret;
 // 	int 	ret2;
-// 	a = 1;
 
-// 	b = -1;
-// 	// ft_printf("%*.*X, %*.*u, %*.*x", a, b, l, a, b, m, a, b, m);
+// 	// a = -2;
+// 	// while(a < 5) //T70-177
+// 	// {
+// 	// 	b = -2;
+// 	// 	while (b < 5)
+// 	// 	{
+// 	// 		printf("A : %d|B : %d\n", a, b);
+// 	// 		ret = ft_printf("F %*.*s, %*.*s, %*.*s, %*.*s, %*.*s, %*.*s, %*.*s, %*.*s\n", a, b, n, a, b, o, a, b, p, a, b, q, a, b, r, a, b, s, a, b, t, a, b, u);
+// 	// 		ret2 = printf("V %*.*s, %*.*s, %*.*s, %*.*s, %*.*s, %*.*s, %*.*s, %*.*s\n", a, b, n, a, b, o, a, b, p, a, b, q, a, b, r, a, b, s, a, b, t, a, b, u);
+// 	// 		printf("V : %d|F : %d\n", ret2, ret);
+// 	// 		ret = ft_printf("F %-*.*s, %-*.*s, %-*.*s, %-*.*s, %-*.*s, %-*.*s, %-*.*s, %-*.*s\n", a, b, n, a, b, o, a, b, p, a, b, q, a, b, r, a, b, s, a, b, t, a, b, u);
+// 	// 		ret2 = printf("V %-*.*s, %-*.*s, %-*.*s, %-*.*s, %-*.*s, %-*.*s, %-*.*s, %-*.*s\n", a, b, n, a, b, o, a, b, p, a, b, q, a, b, r, a, b, s, a, b, t, a, b, u);
+// 	// 		printf("V : %d|F : %d\n", ret2, ret);
+// 	// 		b++;
+// 	// 	}
+// 	// 	a++;
+// 	// }
 
-// 	//Test 1
-// 	//ft_printf("%*.*u, %*.*x, %*.*X, %*.*u, %*.*x, %*.*X, %*.*u, %*.*x, %*.*X, %*.*u, %*.*x, %*.*X, %*.*u, %*.*x, %*.*X, %*.*u, %*.*x, %*.*X, %*.*u, %*.*x, %*.*X, %*.*u, %*.*x, %*.*X", a, b, i, a, b, i, a, b, i, a, b, j, a, b, j, a, b, j, a, b, k, a, b, k, a, b, k, a, b, l, a, b, l, a, b, l, a, b, m, a, b, m, a, b, m, a, b, c, a, b, c, a, b, c, a, b, d, a, b, d, a, b, d, a, b, e, a, b, e, a, b, e);
-// 	//Test 2
-// 	//printf("%0*.*u, %0*.*x, %0*.*X, %0*.*u, %0*.*x, %0*.*X, %0*.*u, %0*.*x, %0*.*X, %0*.*u, %0*.*x, %0*.*X, %0*.*u, %0*.*x, %0*.*X, %0*.*u, %0*.*x, %0*.*X, %0*.*u, %0*.*x, %0*.*X, %0*.*u, %0*.*x, %0*.*X", a, b, i, a, b, i, a, b, i, a, b, j, a, b, j, a, b, j, a, b, k, a, b, k, a, b, k, a, b, l, a, b, l, a, b, l, a, b, m, a, b, m, a, b, m, a, b, c, a, b, c, a, b, c, a, b, d, a, b, d, a, b, d, a, b, e, a, b, e, a, b, e);
-// 	//Test 3
-// 	//printf("%-*.*u, %-*.*x, %-*.*X, %-*.*u, %-*.*x, %-*.*X, %-*.*u, %-*.*x, %-*.*X, %-*.*u, %-*.*x, %-*.*X, %-*.*u, %-*.*x, %-*.*X, %-*.*u, %-*.*x, %-*.*X, %-*.*u, %-*.*x, %-*.*X, %-*.*u, %-*.*x, %-*.*X", a, b, i, a, b, i, a, b, i, a, b, j, a, b, j, a, b, j, a, b, k, a, b, k, a, b, k, a, b, l, a, b, l, a, b, l, a, b, m, a, b, m, a, b, m, a, b, c, a, b, c, a, b, c, a, b, d, a, b, d, a, b, d, a, b, e, a, b, e, a, b, e);
-
-// 	a = 0;
-// 	b = -1;
-
-// 	ret2 = printf("V %*.*X\n", a, b, l);
-// 	ret = ft_printf("F %*.*X\n", a, b, l);
+// 	a = 3;
+// 	b = 4;
+// 	ret2 = printf("V |%-1.0s|\n", "0");
+// 	ret = ft_printf("V |%-1.0s|\n", "0");
 // 	printf("V : %d|F : %d\n", ret2, ret);
+// 	// ft_printf("%*.*s\n", a, b, u);
+
+// 	// ret2 = printf("%*.*s, %*.*s, %*.*s, %*.*s, %*.*s, %*.*s, %*.*s, %*.*s\n", a, b, n, a, b, o, a, b, p, a, b, q, a, b, r, a, b, s, a, b, t, a, b, u);
+// 	// ret = ft_printf("%*.*s, %*.*s, %*.*s, %*.*s, %*.*s, %*.*s, %*.*s, %*.*s\n", a, b, n, a, b, o, a, b, p, a, b, q, a, b, r, a, b, s, a, b, t, a, b, u);
+
+// 	// // ret2 = printf("V %*.*i, %*.*d, %*.*d, %*.*d, %*.*d, %*.*d, %*.*d, %*.*d\n", a, b, 8, a, b, -12, a, b, 123456789, a, b, 0, a, b, -12345678, a, b, -2147483648, a, b, 2147483647);
+// 	// // ret = ft_printf("V %*.*i, %*.*d, %*.*d, %*.*d, %*.*d, %*.*d, %*.*d, %*.*d\n", a, b, 8, a, b, -12, a, b, 123456789, a, b, 0, a, b, -12345678, a, b, -2147483648, a, b, 2147483647);
+// 	// printf("V : %d|F : %d\n", ret2, ret);
 // }

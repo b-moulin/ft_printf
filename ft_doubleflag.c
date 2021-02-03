@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:42:43 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/02 15:30:26 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/03 16:30:07 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int		ft_flagdouble6(const char *str, char **container, size_t **i)
 	if (!(tmpa > ft_strlen(container[**i])))
 		return (ft_strlen(container[(**i)++]));
 	//return (0);
-	a = tmpa - ft_strlen(container[(**i)++]);
+	//a = tmpa - ft_strlen(container[(**i)++]);
+	//printf("a : %d\n", a);
 	if (a < 0)
 		ft_putspace(tmpa - ft_strlen(container[(**i)++]));
 	return (tmpa);
@@ -38,13 +39,15 @@ int		ft_flagdouble6(const char *str, char **container, size_t **i)
 int		ft_flagdouble8(const char *str, char **container, size_t **i)
 {
 	long long int		tmpa;
+	long long 			calc;
 
 	tmpa = ft_geta(str) < 0 ? -ft_geta(str) : ft_geta(str);
 	if (ft_geta(str) < 0)
 		return (ft_flagdouble6(str, container, &(*i)));
 	ft_putspace(tmpa - ft_strlen(container[**i]) - 1);
 	write(1, "-", 1);
-	ft_putzerob(ft_strlen(container[**i]) - (container[**i][0] == '-' ? 2 : 1));
+	ft_putzerob(ft_getb(str) - ft_strlen(container[**i]) + 1);
+	//printf("here\n%s\n", container[**i]);
 	ft_putstr(container[(**i)++] + 1);
 	free((char *)str);
 	str = 0;

@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 07:39:32 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/02 15:17:55 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/03 15:05:16 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		ft_sba2(const char *str, char **container, size_t **i)
 	a = ft_geta(str);
 	b = ft_getb(str);
 	tmpa = a < 0 ? -a : a;
-	if (b > 0 && a < 0 && tmpa < b && is_in(ft_rettype(str), "sc"))
+	if (b > 0 && a < 0 && tmpa <= b && is_in(ft_rettype(str), "sc"))
 	{
 		ft_putstr_len(container[**i], b);
 		if (b < ft_strlen(container[**i]))
@@ -52,9 +52,13 @@ int		ft_sba2(const char *str, char **container, size_t **i)
 			ft_putspace((tmpa - ft_strlen(container[**i])));
 		free((char *)str);
 		str = 0;
+		//printf("here");
 		if (b > ft_strlen(container[**i]))
-			b = tmpa;
+			b = ft_strlen(container[**i]);
+		if (tmpa > b)
+			b = b + (tmpa - b);
 		(**i)++;
+		//printf("B : %d\n", b);
 		return (b);
 	}
 	if (tmpa > b)
@@ -87,7 +91,7 @@ int		ft_sba(const char *str, char **container, size_t **i)
 	tmpa = a < 0 ? -a : a;
 	if (b < 0)
 		b = -b;
-	if (tmpa > b || a < 0)
+	if (tmpa >= b || a < 0)
 		return (ft_sba2(str, container, &(*i)));
 	if (b == 0)
 	{
@@ -98,21 +102,26 @@ int		ft_sba(const char *str, char **container, size_t **i)
 	}
 	if (b > tmpa && tmpa <= ft_strlen(container[(**i)]))
 	{
-		ft_putstr(container[(**i)]);
+		ft_putstr_len(container[**i], b);
 		free((char *)str);
 		str = 0;
-		return (ft_strlen(container[(**i)++]));
+		if (ft_strlen(container[(**i)]) < b)
+			b = ft_strlen(container[(**i)]);
+		(**i)++;
+		return (b);
 	}
+	//printf("here");
 	ft_putspace(tmpa - ft_strlen(container[**i]));
 	ft_putstr(container[**i]);
 	free((char *)str);
 	str = 0;
-	return (ft_strlen(container[(**i)++]) + 1);
+	a = tmpa - ft_strlen(container[**i]) + ft_strlen(container[(**i)++]);
+	return (a);
 }
 
 int		ft_nomallocdflag3(const char *str, char *container, size_t **i)
 {
-	char	dest[ft_strlen(container)];
+	char	dest[ft_strlen(container) + 1];
 	int		j;
 
 	j = 0;

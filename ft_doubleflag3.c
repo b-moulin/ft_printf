@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 16:24:05 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/02 15:20:51 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/03 16:31:04 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ int		ft_ptnotset(const char *str, char **container, size_t **i)
 	tmpa = a < 0 ? -a : a;
 	if (tmpa <= ft_strlen(container[**i]))
 	{
-		ft_putstr(container[**i]);
+		if (is_in(ft_rettype(str), "xX") && container[**i][0] == '0')
+			write(1, " ", 1);
+		else
+			ft_putstr(container[**i]);
 		free((char *)str);
 		str = 0;
 		return (ft_strlen(container[(**i)++]));
@@ -35,7 +38,10 @@ int		ft_ptnotset(const char *str, char **container, size_t **i)
 		return (tmpa);
 	}
 	ft_putspace(tmpa - ft_strlen(container[**i]));
-	ft_putstr(container[(**i)++]);
+	if (is_in(ft_rettype(str), "xX") && container[**i][0] == '0')
+		write(1, " ", 1);
+	else
+		ft_putstr(container[(**i)++]);
 	free((char *)str);
 	str = 0;
 	return (tmpa);

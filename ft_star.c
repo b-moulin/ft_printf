@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 08:25:55 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/02 15:49:48 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/03 14:54:24 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,8 @@ int		ft_replacestar(const char *str, char **container, size_t **i)
 	{
 		if (str[j++] == '*')
 		{
-			if (is_in(ft_rettype(str), "dui") && container[**i][0] == '-' && ft_thereispoint(newstr))
+			//printf("here");
+			if (is_in(ft_rettype(str), "duixXsc") && container[**i][0] == '-' && ft_thereispoint(newstr))
 			{
 				newstr = ft_removelastchar(newstr);
 				(**i)++;
@@ -157,7 +158,7 @@ int		ft_replacestar(const char *str, char **container, size_t **i)
 				{
 					if (container[**i] && container[**i + 1]
 						&& container[**i + 1][0] == '0'
-						&& is_in(ft_rettype(str), "dui")
+						&& is_in(ft_rettype(str), "duixX")
 							&& container[**i][0] == '-')
 					{
 						newstr = !newstr ? ft_substr(str, 0, j - 1, 0) : newstr;
@@ -177,10 +178,11 @@ int		ft_replacestar(const char *str, char **container, size_t **i)
 						}
 						else
 						{
+							//printf("here : %s\n", container[**i]);
 							if (container[**i] && container[**i][0] == '-'
 								&& !is_in(ft_rettype(str), "sc"))
 							{
-								// if (is_in(ft_rettype(str), "xX") && container[**i + 1][0] == '0')
+								// if (is_in(ft_rettype(str), "xX"))
 								// {
 								// 	if (!newstr)
 								// 		newstr = ft_substr(str, 0, j - 1, 0);
@@ -193,6 +195,8 @@ int		ft_replacestar(const char *str, char **container, size_t **i)
 									? ft_substr(str, 0, j - 1, 0) : newstr;
 								(**i)++;
 								// }
+								if (newstr[ft_strlen(newstr) - 1] == '.')
+									newstr = ft_removelastchar(newstr);
 							}
 							else
 							{
@@ -209,10 +213,9 @@ int		ft_replacestar(const char *str, char **container, size_t **i)
 		else
 			newstr = ft_replacestar2(str, newstr, j - 1);
 	}
-	if (!(is_in(newstr[ft_strlen(newstr) - 1], "cspdiuxX%")))
+	if (!(is_in(newstr[ft_strlen(newstr) - 1], "cspdiuxX%")) || ft_strlen(newstr) < 2)
 		newstr = ft_joinptr(newstr, str[j - 1]);
 	free((char *)str);
 	str = 0;
-	//printf("newstr : %s\n", newstr);
 	return (ft_flaglist(newstr, container, 0));
 }

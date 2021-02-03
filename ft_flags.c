@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 11:48:03 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/02 14:45:56 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/03 14:34:23 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@ int		ft_getafterp(const char *str)
 
 	i = 0;
 	j = 0;
-	while (str[i] != '.' && str[i] != '-' && str[i] != '+')
+	while (str[i] != '.')
 		i++;
 	start = i + 1;
 	while (str[++i] >= '0' && str[i] <= '9')
 		j++;
+	//printf("%s\n", str);
 	i = ft_atoi(ft_substr(str, start, j, 0));
 	return (i);
 }
@@ -48,6 +49,7 @@ int		ft_flagx(const char *str, char **container, size_t **i, int j)
 int		ft_flagxx(const char *str, char **container, size_t **i)
 {
 	int		ret;
+
 	if (is_in('d', (char *)str) || is_in('i', (char *)str)
 		|| is_in('u', (char *)str) || is_in('x', (char *)str)
 			|| is_in('X', (char *)str))
