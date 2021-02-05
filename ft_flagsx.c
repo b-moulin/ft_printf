@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 09:13:29 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/05 10:27:44 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/05 14:49:09 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ int		ft_flag4b3(const char *str, char **container, size_t **i, int j)
 
 int		ft_flag4(const char *str, char **container, size_t **i, int j)
 {
-	int		ret;
-
 	if (ft_getaftert(str) < 0)
 		return (ft_flag4neg(str, container, &(*i)));
 	if (ft_getaftert(str) <= ft_strlen(container[**i]))

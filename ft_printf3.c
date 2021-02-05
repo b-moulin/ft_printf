@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 13:05:20 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/05 13:10:15 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/05 14:52:40 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int		ft_address2b(char *addr, const char *str)
 
 int		ft_address2(char *addr, const char *str)
 {
-	long long	tmpa;
 	long long	a;
 
 	if (is_in('.', (char *)str) && addr[0] == '0')

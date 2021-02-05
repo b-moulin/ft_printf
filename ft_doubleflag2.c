@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 16:21:16 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/04 17:12:34 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/05 14:48:48 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int		ft_putspaced(const char *str, char **container, size_t **i)
 	j = 0;
 	a = ft_geta(str);
 	b = ft_geta(str);
-	while (j < a - ft_strlen(container[**i]))
+	while (j < (size_t)(a - ft_strlen(container[**i])))
 	{
 		j++;
 		write(1, " ", 1);

@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 07:25:54 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/05 10:21:07 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/05 14:51:52 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ char			*ft_strjoin_nos2(char *s1, char *s2)
 		return (NULL);
 	if (!(dest = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1))))
 		return (NULL);
-	while (i <= ft_strlen(s1) && s1[i])
+	while (i <= (size_t)(ft_strlen(s1)) && s1[i])
 	{
 		dest[i] = s1[i];
 		i++;
 	}
-	while (j <= ft_strlen(s2) && s2[j])
+	while (j <= (size_t)(ft_strlen(s2)) && s2[j])
 	{
 		dest[i] = s2[j];
 		i++;
@@ -58,7 +58,7 @@ char			*ft_nbrbase(unsigned long long dec, char *base)
 {
 	t_nbr		nbr;
 
-	if (dec == -9223372036854775807)
+	if ((long)dec == -9223372036854775807)
 		return (ft_strdup("8000000000000000"));
 	nbr.lenbase = ft_strlen(base);
 	nbr.result = nbr.lenbase;

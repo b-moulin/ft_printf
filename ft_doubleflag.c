@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:42:43 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/04 16:42:55 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/05 14:40:32 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int		ft_flagdouble8(const char *str, char **container, size_t **i)
 {
 	long long			tmpa;
-	long long			calc;
 
 	tmpa = ft_geta(str) < 0 ? -ft_geta(str) : ft_geta(str);
 	if (ft_geta(str) < 0)
@@ -97,7 +96,6 @@ int		ft_flagdouble(const char *str, char **container, size_t **i)
 	long long int		a;
 	long long int		b;
 	long long int		tmpa;
-	char				type;
 
 	a = ft_geta(str);
 	tmpa = a < 0 ? -a : a;

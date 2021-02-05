@@ -6,13 +6,13 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 09:02:03 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/04 16:04:23 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/05 14:55:52 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		ft_nbargsttwo12b2(const char *str, char **container, size_t **i)
+int		ft_nbargsttwo12b2(const char *str, size_t **i)
 {
 	long	tmpa;
 
@@ -69,12 +69,11 @@ int		ft_nbargsttwo12(const char *str, char **container, size_t **i)
 {
 	long	b;
 	long	tmpa;
-	long	negret;
 
 	b = ft_getb(str);
 	tmpa = ft_geta(str) > 0 ? ft_geta(str) : -ft_geta(str);
 	if (b == 0 && container[**i][0] == '0' && !is_in(ft_rettype(str), "scp"))
-		return (ft_nbargsttwo12b2(str, container, &(*i)));
+		return (ft_nbargsttwo12b2(str, &(*i)));
 	if (ft_geta(str) < 0)
 		return (ft_nbargsttwo5(str, container, &(*i)));
 	if (ft_geta(str) > 0 && b < 0

@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 17:11:42 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/04 17:15:19 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/05 15:00:36 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,14 @@ int		ft_retzero2(const char *str, char **container, size_t **i)
 
 int		ft_retzero2b2(const char *str, char **container, size_t **i)
 {
-	int		a;
 	int		tmpa;
 	size_t	j;
 
-	a = ft_getprcta(str);
-	tmpa = a > 0 ? a : -a;
+	tmpa = ft_getprcta(str) > 0 ? ft_getprcta(str) : -ft_getprcta(str);
 	j = 0;
-	if (a < 0)
+	if (ft_getprcta(str) < 0)
 	{
+		ft_freeargs((char *)str);
 		if (container[**i][0] == '-')
 			ft_putstr(container[**i] + 1);
 		else
@@ -64,9 +63,9 @@ int		ft_retzero2b2(const char *str, char **container, size_t **i)
 		ft_putspace(tmpa - ft_strlen(container[(**i)++]));
 		return (tmpa);
 	}
-	while (j < (tmpa - ft_strlen(container[(**i)])))
+	while (j < (size_t)(tmpa - ft_strlen(container[(**i)])))
 	{
-		if (a < 0)
+		if (ft_getprcta(str) < 0)
 			write(1, " ", 1);
 		else
 			write(1, "0", 1);

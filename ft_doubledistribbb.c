@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 16:43:56 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/04 17:10:05 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/05 14:47:37 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,6 @@ int		ft_ptnotset2b(const char *str, char **container, size_t **i)
 	free((char *)str);
 	str = 0;
 	return (tmpa);
-}
-
-int		ft_cutflag(const char *str, char **container, size_t **i)
-{
-	write(1, "flaglist", 8);
-	(**i)++;
-	return (0);
 }
 
 int		ft_flagzero(const char *str)

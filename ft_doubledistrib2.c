@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 16:08:06 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/04 15:25:21 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/05 14:43:44 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int		ft_dflag3r(const char *str, char *container, size_t **i)
 	size_t	j;
 
 	j = 0;
+	**i = **i;
 	if (ft_strlen(container) >= ft_valuept2(str))
 	{
 		ft_putstr(container);
@@ -62,7 +63,7 @@ int		ft_dflag3(const char *str, char *container, size_t **i)
 	j = 0;
 	if (ft_strlen(container) < ft_valuept(str, 0))
 	{
-		while (j < ft_valuept(str, 0) - ft_strlen(container))
+		while (j < (size_t)(ft_valuept(str, 0) - ft_strlen(container)))
 		{
 			write(1, " ", 1);
 			j++;

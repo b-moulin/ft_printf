@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 16:34:13 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/04 17:11:39 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/05 14:49:59 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int		ft_retunb2(const char *str, char **container, size_t **i)
 		b++;
 		write(1, "-", 1);
 	}
-	while (j < b - ft_strlen(container[**i]))
+	while (j < (size_t)(b - ft_strlen(container[**i])))
 	{
 		write(1, "0", 1);
 		j++;

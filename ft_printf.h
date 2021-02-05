@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 09:17:49 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/05 14:04:40 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/05 14:55:36 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,6 @@ int					ft_getafterp(const char *str);
 int					ft_flagx(const char *str,
 						char **container, size_t **i, int j);
 int					ft_flagzero(const char *str);
-int					ft_cutflag(const char *str,
-						char **container, size_t **i);
 int					ft_ptnotset2b(const char *str,
 						char **container, size_t **i);
 int					ft_flagdouble6(const char *str,
@@ -94,7 +92,7 @@ int					ft_sba2b(const char *str,
 						char **container, size_t **i);
 int					ft_sba2b2(const char *str,
 						char **container, size_t **i);
-size_t				ft_strlen(char *str);
+long long			ft_strlen(char *str);
 char				*ft_strdup(char *s1);
 char				*ft_strjoin_nos1(char *s1, char *s2);
 char				*ft_nbrbase(unsigned long long dec, char *base);
