@@ -6,40 +6,16 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:42:43 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/03 16:30:07 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/04 16:42:55 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		ft_flagdouble6(const char *str, char **container, size_t **i)
-{
-	long long int		a;
-	long long int		b;
-	long long int		tmpa;
-
-	a = ft_geta(str);
-	tmpa = a < 0 ? -a : a;
-	b = ft_getb(str);
-	if (container[**i][0] == '-' && b > ft_strlen(container[**i]) - 1)
-		return (ft_flagdouble5(str, container, &(*i)));
-	ft_putstr(container[**i]);
-	free((char *)str);
-	str = 0;
-	if (!(tmpa > ft_strlen(container[**i])))
-		return (ft_strlen(container[(**i)++]));
-	//return (0);
-	//a = tmpa - ft_strlen(container[(**i)++]);
-	//printf("a : %d\n", a);
-	if (a < 0)
-		ft_putspace(tmpa - ft_strlen(container[(**i)++]));
-	return (tmpa);
-}
-
 int		ft_flagdouble8(const char *str, char **container, size_t **i)
 {
-	long long int		tmpa;
-	long long 			calc;
+	long long			tmpa;
+	long long			calc;
 
 	tmpa = ft_geta(str) < 0 ? -ft_geta(str) : ft_geta(str);
 	if (ft_geta(str) < 0)
@@ -47,8 +23,26 @@ int		ft_flagdouble8(const char *str, char **container, size_t **i)
 	ft_putspace(tmpa - ft_strlen(container[**i]) - 1);
 	write(1, "-", 1);
 	ft_putzerob(ft_getb(str) - ft_strlen(container[**i]) + 1);
-	//printf("here\n%s\n", container[**i]);
 	ft_putstr(container[(**i)++] + 1);
+	free((char *)str);
+	str = 0;
+	return (tmpa);
+}
+
+int		ft_flagdouble7b(const char *str, char **container, size_t **i)
+{
+	long long int		tmpa;
+
+	tmpa = ft_geta(str) < 0 ? -ft_geta(str) : ft_geta(str);
+	if (!(tmpa > ft_strlen(container[**i])))
+	{
+		ft_putstr(container[**i]);
+		free((char *)str);
+		str = 0;
+		return (ft_strlen(container[(**i)++]));
+	}
+	ft_putspace(tmpa - ft_strlen(container[**i]));
+	ft_putstr(container[(**i)++]);
 	free((char *)str);
 	str = 0;
 	return (tmpa);
@@ -74,18 +68,28 @@ int		ft_flagdouble7(const char *str, char **container, size_t **i)
 	if ((ft_geta(str) < 0) || (container[**i][0] == '-'
 		&& ft_getb(str) > ft_strlen(container[**i]) - 1))
 		return (ft_flagdouble8(str, container, &(*i)));
-	if (!(tmpa > ft_strlen(container[**i])))
+	return (ft_flagdouble7b(str, container, &(*i)));
+}
+
+int		ft_flagdouble2b2(const char *str, char **container, size_t **i)
+{
+	long long int		a;
+	long long int		b;
+	long long int		tmpa;
+
+	a = ft_geta(str);
+	tmpa = a < 0 ? -a : a;
+	b = ft_getb(str);
+	if (((a <= 0 && b <= 0) || ft_strlen(container[(**i)]) > b))
 	{
 		ft_putstr(container[**i]);
 		free((char *)str);
 		str = 0;
 		return (ft_strlen(container[(**i)++]));
 	}
-	ft_putspace(tmpa - ft_strlen(container[**i]));
-	ft_putstr(container[(**i)++]);
-	free((char *)str);
-	str = 0;
-	return (tmpa);
+	if (b >= a)
+		return (ft_putzero(str, container, &(*i)));
+	return (0);
 }
 
 int		ft_flagdouble(const char *str, char **container, size_t **i)
@@ -100,7 +104,7 @@ int		ft_flagdouble(const char *str, char **container, size_t **i)
 	b = ft_getb(str);
 	if (is_in(ft_rettype(str), "dui") && b == 0 && container[**i][0] == '0')
 	{
-		free ((char *)str);
+		free((char *)str);
 		str = 0;
 		(**i)++;
 		return (ft_putspace(tmpa));
@@ -112,14 +116,5 @@ int		ft_flagdouble(const char *str, char **container, size_t **i)
 		return (ft_ptnotset(str, container, &(*i)));
 	if (tmpa > b && b > 0)
 		return (ft_flagdouble7(str, container, &(*i)));
-	if (((a <= 0 && b <= 0) || ft_strlen(container[(**i)]) > b))
-	{
-		ft_putstr(container[**i]);
-		free((char *)str);
-		str = 0;
-		return (ft_strlen(container[(**i)++]));
-	}
-	if (b >= a)
-		return (ft_putzero(str, container, &(*i)));
-	return (0);
+	return (ft_flagdouble2b2(str, container, &(*i)));
 }

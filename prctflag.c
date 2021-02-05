@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 13:36:58 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/01/28 15:26:52 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/05 10:18:22 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ int		ft_prctzero(const char *str, int two)
 
 	i = 0;
 	a = two == 0 ? ft_getprcta(str) : ft_geta(str);
-	free ((char *)str);
-	str = 0;
+	ft_freeargs((char *)str);
 	if (a == 0)
 		return (write(1, "%%", 1));
 	if (a < 0)
@@ -64,10 +63,7 @@ int		ft_prctzero(const char *str, int two)
 	if (a > 0)
 	{
 		while (i < a - 1)
-		{
-			write(1, " ", 1);
-			i++;
-		}
+			write(1, " ", i++ >= -90000 ? 1 : 1);
 		write(1, "%%", 1);
 		return (a);
 	}

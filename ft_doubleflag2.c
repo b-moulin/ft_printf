@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   ft_doubleflag2.c                                 .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: aviscogl <aviscogl@student.le-101.fr>      +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2021/01/27 16:21:16 by bmoulin      #+#   ##    ##    #+#       */
-/*   Updated: 2021/01/31 20:34:55 by aviscogl    ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_doubleflag2.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/27 16:21:16 by bmoulin           #+#    #+#             */
+/*   Updated: 2021/02/04 17:12:34 by bmoulin          ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
+
 #include "ft_printf.h"
 
 char	ft_rettype(const char *str)
@@ -49,7 +49,6 @@ int		ft_geta(const char *str)
 
 	i = 1;
 	j = 1;
-	//printf("str : |%s|\n", str);
 	while (str[j] && str[j] == '0')
 		j++;
 	while (str[i] && str[i] != '.')

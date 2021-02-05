@@ -6,28 +6,11 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 07:54:44 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/02 08:16:57 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/05 10:16:00 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int		ft_star(const char *str)
-{
-	int		i;
-	int		ret;
-
-	i = 0;
-	ret = 0;
-	while (str[i])
-	{
-		if (!(str[i] != '%' || (str[i] == '%' && str[i + 1] == '%')))
-			if (is_in('*', ft_returnflag(str + i)))
-				ret++;
-		i++;
-	}
-	return (ret);
-}
 
 char	*ft_returnflag(const char *str)
 {
@@ -85,32 +68,29 @@ int		ft_ismalloc(void **str)
 
 int		ft_write(const char *str, char **container)
 {
-	size_t	i;
-	size_t	nb_write;
-	char	*malstr;
+	t_wr	wr;
 
-	i = 0;
-	nb_write = 0;
-	while (str[i])
+	wr.i = 0;
+	wr.nb_write = 0;
+	while (str[wr.i])
 	{
-		malstr = ft_returnflag(str + i);
-		if (str[i] != '%' || malstr[1] == 0)
+		wr.malstr = ft_returnflag(str + wr.i);
+		if (str[wr.i] != '%' || wr.malstr[1] == 0)
 		{
-			if (str[i] == '%')
-				write(1, &str[i++], 1);
+			if (str[wr.i] == '%')
+				write(1, &str[wr.i++], 1);
 			else
-				write(1, &str[i], 1);
-			nb_write++;
-			free(malstr);
-			malstr = 0;
+				write(1, &str[wr.i], 1);
+			wr.nb_write++;
+			ft_freeargs((char *)wr.malstr);
 		}
 		else
 		{
-			i = i + ft_strlen(malstr) - 1;
-			nb_write = nb_write +
-				ft_flaglist(malstr, container, 0);
+			wr.i = wr.i + ft_strlen(wr.malstr) - 1;
+			wr.nb_write = wr.nb_write +
+				ft_flaglist(wr.malstr, container, 0);
 		}
-		i++;
+		wr.i++;
 	}
-	return (nb_write);
+	return (wr.nb_write);
 }

@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 13:19:11 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/03 12:14:14 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/04 16:04:07 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ int					ft_getaftert(const char *str)
 	i--;
 	while ((str[++i] >= '0' && str[i] <= '9') || str[i] == '-' || str[i] == '+')
 		j++;
-	//printf("start : %s\n", ft_substr(str, start, j, 0));
 	ret = ft_atoi(ft_substr(str, start, j + 1, 0));
 	return (ret);
 }

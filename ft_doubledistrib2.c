@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 16:08:06 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/03 14:41:18 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/04 15:25:21 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int		ft_dflag3(const char *str, char *container, size_t **i)
 	size_t	j;
 
 	j = 0;
-	//printf("here");
 	if (ft_strlen(container) < ft_valuept(str, 0))
 	{
 		while (j < ft_valuept(str, 0) - ft_strlen(container))
@@ -74,14 +73,12 @@ int		ft_dflag3(const char *str, char *container, size_t **i)
 	}
 	else
 	{
-		// printf("h-");
 		ft_putstr(container);
 		(**i)++;
 		j = ft_strlen(container);
 		free((char *)str);
 		str = 0;
 		return (j);
-		//return (ft_valuept(str, 1));
 	}
 }
 

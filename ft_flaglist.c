@@ -6,35 +6,11 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 08:52:59 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/03 16:37:19 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/04 17:08:45 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int		ft_cutflag(const char *str, char **container, size_t **i)
-{
-	write(1, "flaglist", 8);
-	(**i)++;
-	return (0);
-}
-
-int		ft_flagzero(const char *str)
-{
-	size_t	i;
-
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i])
-	{
-		if (str[i] == '0' && str[i - 1] &&
-			(str[i - 1] == '%' || str[i - 1] == '.'))
-			return (1);
-		i++;
-	}
-	return (0);
-}
 
 int		ft_flaglist2(const char *str, char **container, size_t **i)
 {
@@ -83,6 +59,31 @@ int		thereisnullb(const char *str)
 	return (0);
 }
 
+int		ft_flaglist2b2(const char *str, char **container, size_t **i, char *m)
+{
+	if (ft_rettype(m) == '%')
+	{
+		free(m);
+		m = 0;
+		return (ft_percflag(str));
+	}
+	if (ft_rettype(m) == 'p')
+	{
+		free(m);
+		m = 0;
+		return (ft_address(str, ft_strdup(container[(**i)++])));
+	}
+	if (ft_strlen((char *)str) == 2)
+	{
+		free(m);
+		m = 0;
+		return (ft_flaglist3(str, container, &(*i)));
+	}
+	free(m);
+	m = 0;
+	return (ft_flaglist2(str, container, &(*i)));
+}
+
 int		ft_flaglist(const char *str, char **container, int reset)
 {
 	static	size_t	*i = 0;
@@ -107,25 +108,5 @@ int		ft_flaglist(const char *str, char **container, int reset)
 		malstr = 0;
 		return (ft_replacestar(str, container, &i));
 	}
-	if (ft_rettype(malstr) == '%')
-	{
-		free(malstr);
-		malstr = 0;
-		return (ft_percflag(str));
-	}
-	if (ft_rettype(malstr) == 'p')
-	{
-		free(malstr);
-		malstr = 0;
-		return (ft_address(str, ft_strdup(container[(*i)++])));
-	}
-	if (ft_strlen((char *)str) == 2)
-	{
-		free(malstr);
-		malstr = 0;
-		return (ft_flaglist3(str, container, &i));
-	}
-	free(malstr);
-	malstr = 0;
-	return (ft_flaglist2(str, container, &i));
+	return (ft_flaglist2b2(str, container, &i, malstr));
 }

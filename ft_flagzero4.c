@@ -6,38 +6,11 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 08:59:58 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/03 15:22:38 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/05 10:09:48 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int		ft_nbargsttwo2(const char *str, char **container, size_t **i)
-{
-	long	b;
-
-	b = ft_getb(str);
-	if (container[**i][0] == '0' && b == 0 && is_in(ft_rettype(str), "dui"))
-	{
-		free ((char *)str);
-		str = 0;
-		(**i)++;
-		return (0);
-	}
-	if ((b >= ft_strlen(container[**i]) || b == 0)
-		&& is_in(ft_rettype(str), "dui"))
-	{
-		ft_putstr(container[**i]);
-		free ((char *)str);
-		str = 0;
-		return (ft_strlen(container[(**i)++]));
-	}
-	ft_putstr_len(container[**i], b);
-	free ((char *)str);
-	str = 0;
-	(**i)++;
-	return (b);
-}
 
 int		ft_nbargsttwo8(const char *str, char **container, size_t **i)
 {
@@ -110,25 +83,13 @@ int		ft_nbargsttwo10(const char *str, char **container, size_t **i)
 	return (tmpa);
 }
 
-int		ft_nbargsttwo11(const char *str, char **container, size_t **i)
+int		ft_nbargsttwo11b2b(const char *str, char **container, size_t **i)
 {
 	long	b;
 	long	tmpa;
 
 	b = ft_getb(str);
 	tmpa = ft_geta(str) > 0 ? ft_geta(str) : -ft_geta(str);
-	if (b >= tmpa)
-		return (ft_nbargsttwo7(str, container, &(*i)));
-	if (is_in(ft_rettype(str), "uid") && b == 0
-		&& ft_geta(str) > ft_strlen(container[**i]))
-	{
-		ft_putspace(ft_geta(str) - ft_strlen(container[**i]));
-		ft_putstr(container[(**i)++]);
-		b = ft_geta(str);
-		free((char *)str);
-		str = 0;
-		return (b);
-	}
 	if (tmpa > b - ft_strlen(container[**i]) + 1)
 		ft_nbargsttwo9(str, container, &(*i));
 	if (container[**i][0] == '-')
@@ -148,4 +109,26 @@ int		ft_nbargsttwo11(const char *str, char **container, size_t **i)
 	free((char *)str);
 	str = 0;
 	return (tmpa);
+}
+
+int		ft_nbargsttwo11(const char *str, char **container, size_t **i)
+{
+	long	b;
+	long	tmpa;
+
+	b = ft_getb(str);
+	tmpa = ft_geta(str) > 0 ? ft_geta(str) : -ft_geta(str);
+	if (b >= tmpa)
+		return (ft_nbargsttwo7(str, container, &(*i)));
+	if (is_in(ft_rettype(str), "uid") && b == 0
+		&& ft_geta(str) > ft_strlen(container[**i]))
+	{
+		ft_putspace(ft_geta(str) - ft_strlen(container[**i]));
+		ft_putstr(container[(**i)++]);
+		b = ft_geta(str);
+		free((char *)str);
+		str = 0;
+		return (b);
+	}
+	return (ft_nbargsttwo11b2b(str, container, &(*i)));
 }

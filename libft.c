@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 08:11:09 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/02 13:13:50 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/05 10:27:26 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,36 +61,29 @@ size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize)
 
 long long	ft_atoi(const char *str)
 {
-	long long		i;
-	short int		k;
-	long long		value;
+	t_at	at;
 
-	value = 0;
-	k = 1;
-	i = 0;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'
-	|| str[i] == '\v' || str[i] == '\f' || str[i] == '\r')
-		i++;
-	if (str[i] == '-')
-		k = -k;
-	if (str[i] == '+' || str[i] == '-')
-		i++;
-	else if (!(str[i] >= '0' && str[i] <= '9'))
+	at.value = 0;
+	at.k = 1;
+	at.i = 0;
+	while (str[at.i] == ' ' || str[at.i] == '\t' || str[at.i] == '\n'
+	|| str[at.i] == '\v' || str[at.i] == '\f' || str[at.i] == '\r')
+		at.i++;
+	if (str[at.i] == '-')
+		at.k = -at.k;
+	if (str[at.i] == '+' || str[at.i] == '-')
+		at.i++;
+	else if (!(str[at.i] >= '0' && str[at.i] <= '9'))
+		return (ft_freeargs((char *)str));
+	if (str[at.i] >= '0' && str[at.i] <= '9')
 	{
-		free ((char *)str);
-		str = 0;
-		return (0);
+		at.value = str[at.i] - 48;
+		at.i++;
+		while (str[at.i] >= '0' && str[at.i] <= '9')
+			at.value = at.value * 10 + (str[at.i++] - 48);
 	}
-	if (str[i] >= '0' && str[i] <= '9')
-	{
-		value = str[i] - 48;
-		i++;
-		while (str[i] >= '0' && str[i] <= '9')
-			value = value * 10 + (str[i++] - 48);
-	}
-	free ((char *)str);
-	str = 0;
-	return (value * k);
+	ft_freeargs((char *)str);
+	return (at.value * at.k);
 }
 
 char		*ft_retptr(const char c)
@@ -101,4 +94,22 @@ char		*ft_retptr(const char c)
 	ret[1] = 0;
 	ret[0] = c;
 	return (ret);
+}
+
+void		ft_nbargsttwo14(const char *str, char **container, size_t **i)
+{
+	long	a;
+	long	b;
+	long	tmpa;
+
+	a = ft_geta(str);
+	b = ft_getb(str);
+	tmpa = a > 0 ? a : -a;
+	if (b == 0 && a >= ft_strlen(container[**i])
+		&& is_in(ft_rettype(str), "sc"))
+		ft_putspace(ft_strlen(container[**i]));
+	else
+		ft_putstr(container[**i]);
+	free((char *)str);
+	str = 0;
 }
