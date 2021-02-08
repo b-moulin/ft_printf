@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 09:17:49 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/05 14:55:36 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/07 14:18:38 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,5 +226,6 @@ int					ft_getflag(const char *str, int restart);
 int					ft_getflagb(const char *str, size_t i);
 void				ft_ptf(t_ptf *ptf, va_list arg, const char *str);
 void				ft_ptf2(t_ptf *ptf, va_list arg, const char *str);
+int					ft_freeargs2(char *str, int ret);
 
 #endif

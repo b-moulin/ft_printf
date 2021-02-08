@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:35:50 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/05 14:54:21 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/07 14:18:26 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,11 @@ char	*ft_substr(char const *s, unsigned int start, size_t len, int tofree)
 	if (tofree)
 		ft_freeargs((char *)s);
 	return (dest);
+}
+
+int		ft_freeargs2(char *str, int ret)
+{
+	free((char *)str);
+	str = 0;
+	return (ret);
 }

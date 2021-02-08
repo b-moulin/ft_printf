@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 17:11:42 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/05 15:00:36 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/07 14:23:22 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,15 +84,15 @@ int		ft_nbargsttwo3(const char *str, char **container, size_t **i)
 	b = ft_getb(str);
 	tmpa = a > 0 ? a : -a;
 	if (b == 0 && a == 0 && ft_rettype(str) == 's')
-		return (0);
+		return (ft_freeargs((char *)str));
 	if (a == 0 && ft_rettype(str) == 'c')
 	{
 		write(1, container[(**i)++], 1);
-		return (1);
+		return (ft_freeargs2((char *)str, 1));
 	}
 	write(1, " ", 1);
 	(**i)++;
-	return (1);
+	return (ft_freeargs2((char *)str, 1));
 }
 
 int		ft_nbargsttwo4(const char *str, char **container, size_t **i)
@@ -106,19 +106,20 @@ int		ft_nbargsttwo4(const char *str, char **container, size_t **i)
 	{
 		write(1, "-", 1);
 		tmpa = b - ft_strlen(container[**i]) + 1;
-		if (tmpa > 0)
-			ft_putzerob(tmpa);
+		(tmpa > 0 ? ft_putzerob(tmpa) : 0);
 		ft_putstr(container[(**i)++] + 1);
+		ft_freeargs((char *)str);
 		return (b + 1);
 	}
 	else if (is_in(ft_rettype(str), "uidxX"))
 	{
 		ft_putzerob(b - ft_strlen(container[**i]));
 		ft_putstr(container[(**i)++]);
-		return (b);
+		return (ft_freeargs2((char *)str, b));
 	}
 	if (b > ft_strlen(container[**i]))
 		b = ft_strlen(container[**i]);
 	ft_putstr_len(container[(**i)++], b);
+	ft_freeargs((char *)str);
 	return (b);
 }

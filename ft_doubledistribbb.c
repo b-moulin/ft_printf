@@ -6,7 +6,7 @@
 /*   By: bmoulin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 16:43:56 by bmoulin           #+#    #+#             */
-/*   Updated: 2021/02/05 14:47:37 by bmoulin          ###   ########lyon.fr   */
+/*   Updated: 2021/02/07 14:01:53 by bmoulin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,16 +72,22 @@ int		ft_getafterp(const char *str)
 
 int		ft_flagx(const char *str, char **container, size_t **i, int j)
 {
+	int		ret;
+
 	if (container[**i][0] == '-')
 	{
 		write(1, "-", 1);
 		while (j++ < ft_getafterp(str) - ft_strlen(container[**i] + 1))
 			write(1, "0", 1);
 		ft_putstr(container[(**i)++] + 1);
-		return (ft_getafterp(str) + 1);
+		ret = ft_getafterp(str) + 1;
+		ft_freeargs((char *)str);
+		return (ret);
 	}
 	while (j++ < ft_getafterp(str) - ft_strlen(container[**i]))
 		write(1, "0", 1);
 	ft_putstr(container[(**i)++]);
-	return (ft_getafterp(str));
+	ret = ft_getafterp(str);
+	ft_freeargs((char *)str);
+	return (ret);
 }
